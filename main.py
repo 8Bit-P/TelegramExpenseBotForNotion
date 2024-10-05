@@ -51,7 +51,7 @@ def create_page(data: dict):
 
 async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE, isExpense: bool):
     if len(context.args) < 2:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Please provide an amount and a description. Format: {"/addexpense" if isExpense else "/addincome"} [amount] [date (optional)] [description]")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f'Please provide an amount and a description. Format: {"/addexpense" if isExpense else "/addincome"} [amount] [date (optional)] [description]')
     else:
         # Validate the amount is a number
         try:
