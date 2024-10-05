@@ -27,8 +27,6 @@ HELP_TEXT = """The following list of commands are available to use to add expens
     - /addexpense [amount] [date (optional)] [description] 🚨
     - /addIncome [amount] [date (optional)] [description] 💵
 """
-
-
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
@@ -51,16 +49,7 @@ def create_page(data: dict):
     print(res.status_code)
     return res
 
-
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="Welcome, I'm Edward the expense tracker bot 🤖, type /help to get the available commands for this bot")
-
-async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=HELP_TEXT)
-
-
-async def addExpense(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
+async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE, isExpense: bool):
     if len(context.args) < 2:
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Please provide an amount and a description. Format: /addExpense [amount] [date (optional)] [description]")
     else:
@@ -89,7 +78,7 @@ async def addExpense(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     "Description": {"title": [{"text": {"content": description}}]},
                     "Amount": {"number": amount},
                     "Date": {"date": {"start": expense_date}},
-                    "Expense": {"checkbox": True}  # To mark this as an expense
+                    "Expense": {"checkbox": isExpense}  # To mark this as an expense
                 }
 
             except ValueError:
@@ -105,7 +94,7 @@ async def addExpense(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "Description": {"title": [{"text": {"content": description}}]},
                 "Amount": {"number": amount},
                 "Date": {"date": {"start": expense_date}},
-                "Expense": {"checkbox": True}  # To mark this as an expense
+                "Expense": {"checkbox": isExpense}  # To mark this as an expense
             }
 
         # Call your create_page function to create the entry in Notion
@@ -114,13 +103,24 @@ async def addExpense(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # Send a confirmation message back to the user
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text=f"""🚨 <b>EXPENSE ADDED:</b>\n
+            text=f"""  {"🚨 <b>EXPENSE ADDED:</b>" if isExpense else "💵 <b>INCOME ADDED:</b> "}\n
             <b>Amount</b>: {amount}\n
             <b>Description</b>: {description}\n
             <b>Date</b>: {date_str if hasDate else 'today'}""",
             parse_mode="HTML"
         )
 
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Welcome, I'm Edward the expense tracker bot 🤖, type /help to get the available commands for this bot")
+
+async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=HELP_TEXT)
+
+async def addExpense(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await addExpenseIncomeRow(update, context, True)
+
+async def addIncome(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await addExpenseIncomeRow(update, context, False)
 
 if __name__ == '__main__':
     application = ApplicationBuilder().token(BOT_TOKEN).build()
@@ -128,7 +128,8 @@ if __name__ == '__main__':
     # Define handlers
     start_handler = CommandHandler('start', start)
     help_handler = CommandHandler('help', help)
-    addExpense_handler = CommandHandler('addExpense', addExpense)
+    addExpense_handler = CommandHandler('addexpense', addExpense)
+    addExpense_handler = CommandHandler('addincome', addIncome)
     
     # Add handlers to application
     application.add_handler(start_handler)
