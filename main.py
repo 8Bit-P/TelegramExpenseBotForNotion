@@ -25,7 +25,7 @@ headers = {
 HELP_TEXT = """The following list of commands are available to use to add expenses to your Notion database:
     - /help
     - /addexpense [amount] [date (optional)] [description] 🚨
-    - /addIncome [amount] [date (optional)] [description] 💵
+    - /addincome [amount] [date (optional)] [description] 💵
 """
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -51,7 +51,7 @@ def create_page(data: dict):
 
 async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE, isExpense: bool):
     if len(context.args) < 2:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="Please provide an amount and a description. Format: /addExpense [amount] [date (optional)] [description]")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Please provide an amount and a description. Format: {"/addexpense" if isExpense else "/addincome"} [amount] [date (optional)] [description]")
     else:
         # Validate the amount is a number
         try:
@@ -129,12 +129,13 @@ if __name__ == '__main__':
     start_handler = CommandHandler('start', start)
     help_handler = CommandHandler('help', help)
     addExpense_handler = CommandHandler('addexpense', addExpense)
-    addExpense_handler = CommandHandler('addincome', addIncome)
+    addIncome_handler = CommandHandler('addincome', addIncome)
     
     # Add handlers to application
     application.add_handler(start_handler)
     application.add_handler(help_handler)
     application.add_handler(addExpense_handler)
+    application.add_handler(addIncome_handler)
 
     # Run bot
     application.run_polling()
