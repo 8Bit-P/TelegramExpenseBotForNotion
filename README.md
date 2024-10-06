@@ -22,3 +22,27 @@ This will log a new expense of `$15.50` for groceries on **October 6, 2024** in 
 
 ## 🚀 **Start Managing Your Finances Now!**
 Simply use the commands above to track your daily expenses and incomes directly through Telegram, and keep everything organized in Notion effortlessly!
+
+## 📂 **Required Fields in `.env` File**
+
+To configure the bot, the following fields are required in the `.env` file:
+
+```bash
+BOT_TOKEN=                # Your Telegram bot token
+CHAT_ID=                  # Telegram chat ID to prevent unauthorized users from adding expenses
+BOT_NAME=                 # Name of the bot
+BOT_USERNAME=             # Username of the bot
+
+NOTION_TOKEN=             # Your Notion API token
+MAIN_DATABASE_ID=         # The Notion database ID where primary expenses/income are logged
+ACCOUNTS_DATABASE_ID=     # The Notion database ID for accounts where expense relations are stored
+```
+
+### 📌 **Description of Each Field**
+- **`BOT_TOKEN`**: This is the token generated when you create your Telegram bot using [BotFather](https://t.me/BotFather).
+- **`CHAT_ID`**: The unique ID of your Telegram chat. This ensures only you (or authorized users) can interact with the bot and log expenses.
+- **`BOT_NAME`**: The display name of your bot.
+- **`BOT_USERNAME`**: The username you’ve chosen for your bot on Telegram.
+- **`NOTION_TOKEN`**: Your Notion API token, generated from [Notion's integration settings](https://www.notion.so/my-integrations).
+- **`MAIN_DATABASE_ID`**: The ID of your main Notion database, where you’ll log expenses and income.
+- **`ACCOUNTS_DATABASE_ID`**: The ID of the Notion database where you store account-related data (such as relation expenses).
