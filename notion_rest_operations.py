@@ -92,7 +92,7 @@ def update_account_summary(account_page_id: str, expense_page_id: str, isExpense
     update_res = requests.patch(update_url, headers=headers, json={"properties": data})
 
     if update_res.status_code == 200:
-        logger.info(f"Successfully updated account with new {"expense" if isExpense else "income"} relation.")
+        logger.info(f"""Successfully updated account with new {"expense" if isExpense else "income"} relation.""")
     else:
         logger.error(f"Failed to update account: {update_res.text}")
 
