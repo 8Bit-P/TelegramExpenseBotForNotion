@@ -15,6 +15,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 NOTION_TOKEN = os.getenv('NOTION_TOKEN')
 DATABASE_ID = os.getenv('DATABASE_ID')
+CHAT_ID = os.getenv('CHAT_ID')
 
 headers = {
     "Authorization": "Bearer " + NOTION_TOKEN,
@@ -27,6 +28,9 @@ HELP_TEXT = """The following list of commands are available to use to add expens
     - /addexpense [amount] [date (optional)] [description] 🚨
     - /addincome [amount] [date (optional)] [description] 💵
 """
+
+INVALID_CHAT_ID = "You don't have permission to access this bot functionality."
+
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
@@ -35,7 +39,6 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
 
-#TODO: add chat_id filtering
 
 def create_page(data: dict):
     """ Creates record in Notion DB """
@@ -45,8 +48,6 @@ def create_page(data: dict):
     payload = {"parent": {"database_id": DATABASE_ID}, "properties": data}
 
     res = requests.post(create_url, headers=headers, json=payload)
-    print(res)
-    print(res.status_code)
     return res
 
 async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE, isExpense: bool):
@@ -117,10 +118,16 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=HELP_TEXT)
 
 async def addExpense(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await addExpenseIncomeRow(update, context, True)
+    if update.message.chat_id != int(CHAT_ID): 
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=INVALID_CHAT_ID)
+    else:
+        await addExpenseIncomeRow(update, context, True)
 
 async def addIncome(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await addExpenseIncomeRow(update, context, False)
+    if update.message.chat_id != int(CHAT_ID): 
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=INVALID_CHAT_ID)
+    else:
+        await addExpenseIncomeRow(update, context, False)
 
 if __name__ == '__main__':
     application = ApplicationBuilder().token(BOT_TOKEN).build()
