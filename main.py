@@ -1,12 +1,11 @@
 import logging
-from telegram import Update, InlineQueryResultArticle, InputTextMessageContent
-from telegram.ext import filters, ApplicationBuilder, ContextTypes, CommandHandler, InlineQueryHandler
-from uuid import uuid4
+from telegram import Update
+from telegram.ext import  ApplicationBuilder, ContextTypes, CommandHandler
 from dotenv import load_dotenv
 import os
-import requests
 from datetime import datetime,timezone
 import re
+from notion_rest_operations import get_account_page, update_account_summary, create_page
 
 # Load the .env file
 load_dotenv()
@@ -14,14 +13,10 @@ load_dotenv()
 # Access the variables
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 NOTION_TOKEN = os.getenv('NOTION_TOKEN')
-DATABASE_ID = os.getenv('DATABASE_ID')
+MAIN_DATABASE_ID = os.getenv('MAIN_DATABASE_ID')
+ACCOUNTS_DATABASE_ID = os.getenv('ACCOUNTS_DATABASE_ID')
 CHAT_ID = os.getenv('CHAT_ID')
 
-headers = {
-    "Authorization": "Bearer " + NOTION_TOKEN,
-    "Content-Type": "application/json",
-    "Notion-Version": "2022-06-28",
-}
 
 HELP_TEXT = """The following list of commands are available to use to add expenses to your Notion database:
     - /help
@@ -40,15 +35,6 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
 
-def create_page(data: dict):
-    """ Creates record in Notion DB """
-
-    create_url = "https://api.notion.com/v1/pages"
-
-    payload = {"parent": {"database_id": DATABASE_ID}, "properties": data}
-
-    res = requests.post(create_url, headers=headers, json=payload)
-    return res
 
 async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE, isExpense: bool):
     if len(context.args) < 2:
@@ -99,17 +85,24 @@ async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE
             }
 
         # Call your create_page function to create the entry in Notion
-        create_page(data)
+        page_id = create_page(data, MAIN_DATABASE_ID)
+        if page_id:
+            account_page_id = get_account_page("RegularAccount")  # Replace with your logic to fetch account
+            
+            if account_page_id:
+                # Update the account with the new relation
+                update_account_summary(account_page_id, page_id)
 
-        # Send a confirmation message back to the user
-        await context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=f"""  {"🚨 <b>EXPENSE ADDED:</b>" if isExpense else "💵 <b>INCOME ADDED:</b> "}\n
-            <b>Amount</b>: {amount}\n
-            <b>Description</b>: {description}\n
-            <b>Date</b>: {date_str if hasDate else 'today'}""",
-            parse_mode="HTML"
-        )
+            await context.bot.send_message(
+                chat_id=update.effective_chat.id,
+                text=f"""  {"🚨 <b>EXPENSE ADDED:</b>" if isExpense else "💵 <b>INCOME ADDED:</b> "}\n
+                <b>Amount</b>: {amount}\n
+                <b>Description</b>: {description}\n
+                <b>Date</b>: {date_str if hasDate else 'today'}""",
+                parse_mode="HTML"
+            )
+        else:
+            await context.bot.send_message(chat_id=update.effective_chat.id, text="Failed to add the expense/income.")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Welcome, I'm Edward the expense tracker bot 🤖, type /help to get the available commands for this bot")
