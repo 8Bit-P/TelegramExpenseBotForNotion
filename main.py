@@ -87,7 +87,10 @@ async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE
                 "Description": {"title": [{"text": {"content": description}}]},
                 "Amount": {"number": amount},
                 "Date": {"date": {"start": expense_date}},
-                "Expense": {"checkbox": isExpense}  # To mark this as an expense
+                "Expense": {"checkbox": isExpense},  # To mark this as an expense
+                "Account": {
+                    "multi_select": [{"name": "RegularAccount"}]  # Use multi_select and add "RegularAccount"
+                }
             }
 
         # Call your create_page function to create the entry in Notion
