@@ -58,7 +58,7 @@ def get_account_page(account_name: str):
         logger.error(f"Failed to fetch account: {res.text}")
         return None
 
-def update_account_summary(account_page_id: str, expense_page_id: str):
+def update_account_summary(account_page_id: str, expense_page_id: str, isExpense: bool):
     """Updates the RelationExpenses field in the account row by appending the new expense"""
 
     # Step 1: Fetch the current relations from the account page
@@ -71,24 +71,28 @@ def update_account_summary(account_page_id: str, expense_page_id: str):
 
     account_data = res.json()
     
-    # Extract the current relations (if any) from the "RelationExpenses" field
-    current_relations = account_data.get("properties", {}).get("RelationExpenses", {}).get("relation", [])
+    if isExpense:
+        # Extract the current relations (if any) from the "RelationExpenses" field
+        current_relations = account_data.get("properties", {}).get("RelationExpenses", {}).get("relation", [])
+    else:
+        current_relations = account_data.get("properties", {}).get("RelationIncome", {}).get("relation", [])
+
 
     # Step 2: Append the new expense to the list of relations
     current_relations.append({"id": expense_page_id})
 
     # Step 3: Update the account page with the new list of relations
-    data = {
-        "RelationExpenses": {
-            "relation": current_relations  # Set the updated list of relations
-        }
-    }
+    if isExpense:
+        data = {"RelationExpenses": {"relation": current_relations }}# Set the updated list of relations
+    else:
+        data = {"RelationIncome": {"relation": current_relations }}# Set the updated list of relations
+
 
     update_url = f"https://api.notion.com/v1/pages/{account_page_id}"
     update_res = requests.patch(update_url, headers=headers, json={"properties": data})
 
     if update_res.status_code == 200:
-        logger.info("Successfully updated account with new expense relation.")
+        logger.info(f"Successfully updated account with new {"expense" if isExpense else "income"} relation.")
     else:
         logger.error(f"Failed to update account: {update_res.text}")
 

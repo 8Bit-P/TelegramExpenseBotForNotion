@@ -97,7 +97,7 @@ async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE
             
             if account_page_id:
                 # Update the account with the new relation
-                update_account_summary(account_page_id, page_id)
+                update_account_summary(account_page_id, page_id, isExpense)
 
             await context.bot.send_message(
                 chat_id=update.effective_chat.id,
