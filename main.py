@@ -7,6 +7,10 @@ from datetime import datetime,timezone
 import re
 from notion_rest_operations import get_account_page, update_account_summary, create_page
 
+##################################################################
+################## Global variable definition#####################
+##################################################################
+
 # Load the .env file
 load_dotenv()
 
@@ -34,7 +38,9 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
 
-
+##################################################################
+################## Global variable definition end#################
+##################################################################
 
 async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE, isExpense: bool):
     if len(context.args) < 2:

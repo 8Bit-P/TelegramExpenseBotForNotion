@@ -3,6 +3,9 @@ from dotenv import load_dotenv
 import os
 import requests
 
+##################################################################
+################## Global variable definition#####################
+##################################################################
 # Load the .env file
 load_dotenv()
 
@@ -23,6 +26,10 @@ headers = {
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
+
+##################################################################
+################## Global variable definition end#################
+##################################################################
 
 def get_account_page(account_name: str):
     """Fetches the account page from the Accounts Database based on account name"""
@@ -84,8 +91,6 @@ def update_account_summary(account_page_id: str, expense_page_id: str):
         logger.info("Successfully updated account with new expense relation.")
     else:
         logger.error(f"Failed to update account: {update_res.text}")
-
-
 
 def create_page(data: dict, database_id: str):
     """ Creates record in Notion DB and returns the page_id """
