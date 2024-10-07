@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 from datetime import datetime,timezone
 import re
-from notion_rest_operations import get_account_page, update_account_summary, create_page
+from notion_rest_operations import get_account_page, update_account_summary, create_page, update_month_summary
 
 ##################################################################
 ################## Global variable definition#####################
@@ -101,6 +101,8 @@ async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE
             if account_page_id:
                 # Update the account with the new relation
                 update_account_summary(account_page_id, page_id, isExpense)
+                #Update the current month with expense
+                update_month_summary(page_id, isExpense)
 
             await context.bot.send_message(
                 chat_id=update.effective_chat.id,
