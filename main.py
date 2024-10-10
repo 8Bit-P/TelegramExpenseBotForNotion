@@ -71,7 +71,10 @@ async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE
                     "Description": {"title": [{"text": {"content": description}}]},
                     "Amount": {"number": amount},
                     "Date": {"date": {"start": expense_date}},
-                    "Expense": {"checkbox": isExpense}  # To mark this as an expense
+                    "Expense": {"checkbox": isExpense},  # To mark this as an expense
+                    "Account": {
+                        "multi_select": [{"name": "RegularAccount"}]  # Use multi_select and add "RegularAccount"
+                    }
                 }
 
             except ValueError:
@@ -106,12 +109,10 @@ async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE
 
             await context.bot.send_message(
                 chat_id=update.effective_chat.id,
-                text=f"""  {"🚨 <b>EXPENSE ADDED:</b>" if isExpense else "💵 <b>INCOME ADDED:</b> "}\n
-                <b>Amount</b>: {amount}\n
-                <b>Description</b>: {description}\n
-                <b>Date</b>: {date_str if hasDate else 'today'}""",
+                text=f"""{"🚨 <b>EXPENSE ADDED:</b>" if isExpense else "💵 <b>INCOME ADDED:</b>"}\n<b>Amount</b>: {amount}€\n<b>Description</b>: {description}\n<b>Date</b>: {date_str if hasDate else 'today'}""",
                 parse_mode="HTML"
             )
+
         else:
             await context.bot.send_message(chat_id=update.effective_chat.id, text="Failed to add the expense/income.")
 

@@ -36,6 +36,7 @@ BOT_USERNAME=             # Username of the bot
 NOTION_TOKEN=             # Your Notion API token
 MAIN_DATABASE_ID=         # The Notion database ID where primary expenses/income are logged
 ACCOUNTS_DATABASE_ID=     # The Notion database ID for accounts where expense relations are stored
+MONTH_DATABASE_ID=        # The ID of the Notion database where you store month-related data
 ```
 
 ### 📌 **Description of Each Field**
@@ -46,3 +47,4 @@ ACCOUNTS_DATABASE_ID=     # The Notion database ID for accounts where expense re
 - **`NOTION_TOKEN`**: Your Notion API token, generated from [Notion's integration settings](https://www.notion.so/my-integrations).
 - **`MAIN_DATABASE_ID`**: The ID of your main Notion database, where you’ll log expenses and income.
 - **`ACCOUNTS_DATABASE_ID`**: The ID of the Notion database where you store account-related data (such as relation expenses).
+- **`MONTH_DATABASE_ID`**: The ID of the Notion database where you store month-related data .
