@@ -105,7 +105,7 @@ async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE
                 # Update the account with the new relation
                 update_account_summary(account_page_id, page_id, isExpense)
                 #Update the current month with expense
-                update_month_summary(page_id, isExpense)
+                update_month_summary(page_id, isExpense, expense_date)
 
             await context.bot.send_message(
                 chat_id=update.effective_chat.id,

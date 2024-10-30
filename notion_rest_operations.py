@@ -2,7 +2,7 @@ import logging
 from dotenv import load_dotenv
 import os
 import requests
-import datetime
+from datetime import datetime
 
 ##################################################################
 ################## Global variable definition#####################
@@ -98,12 +98,13 @@ def update_account_summary(account_page_id: str, expense_page_id: str, isExpense
     else:
         logger.error(f"Failed to update account: {update_res.text}")
 
-def get_month_page():
+def get_month_page(expenseDate: str):
     """Fetches the account page from the Accounts Database based on account name"""
     query_url = f"https://api.notion.com/v1/databases/{MONTHS_DATABASE_ID}/query"
     
+    date_object = datetime.strptime(expenseDate, "%Y-%m-%dT%H:%M:%S")
     # Get the current month's name (e.g., "October")
-    month = datetime.datetime.now().strftime("%B")  # Full month name with first letter capitalized
+    month = date_object.strftime("%B")  # Full month name with first letter capitalized
 
     # Build the payload for querying the database
     payload = {
@@ -128,12 +129,12 @@ def get_month_page():
         logger.error(f"Failed to fetch month: {res.text}")
         return None
 
-def update_month_summary( expense_page_id: str, isExpense: bool):
+def update_month_summary( expense_page_id: str, isExpense: bool, expenseDate: str):
     """Updates the RelationExpenses field in the month row by appending the new expense or income"""
 
 
     # Step 0: Fetch id of current month
-    month_page_id = get_month_page()
+    month_page_id = get_month_page(expenseDate)
 
     # Step 1: Fetch the current relations from the account page
     account_url = f"https://api.notion.com/v1/pages/{month_page_id}"
