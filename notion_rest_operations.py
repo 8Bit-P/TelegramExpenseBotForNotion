@@ -102,8 +102,13 @@ def get_month_page(expenseDate: str):
     """Fetches the account page from the Accounts Database based on account name"""
     query_url = f"https://api.notion.com/v1/databases/{MONTHS_DATABASE_ID}/query"
     
-    date_object = datetime.strptime(expenseDate, "%Y-%m-%dT%H:%M:%S")
-    # Get the current month's name (e.g., "October")
+    try:
+        # Try to parse with microseconds first
+        date_object = datetime.strptime(expenseDate, "%Y-%m-%dT%H:%M:%S.%f")
+    except ValueError:
+        # Fall back to parsing without microseconds
+        date_object = datetime.strptime(expenseDate, "%Y-%m-%dT%H:%M:%S")
+
     month = date_object.strftime("%B")  # Full month name with first letter capitalized
 
     # Build the payload for querying the database
