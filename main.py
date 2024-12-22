@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 from datetime import datetime,timezone
 import re
-from notion_rest_operations import get_account_page, update_account_summary, create_page, update_month_summary
+from notion_rest_operations import create_page, update_month_summary
 
 ##################################################################
 ################## Global variable definition#####################
@@ -96,16 +96,11 @@ async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE
                 }
             }
 
-        # Call your create_page function to create the entry in Notion
         page_id = create_page(data, MAIN_DATABASE_ID)
         if page_id:
-            account_page_id = get_account_page("RegularAccount")  # Replace with your logic to fetch account
-            
-            if account_page_id:
-                # Update the account with the new relation
-                update_account_summary(account_page_id, page_id, isExpense)
-                #Update the current month with expense
-                update_month_summary(page_id, isExpense, expense_date)
+          
+            #Update the current month with expense
+            update_month_summary(page_id, isExpense, expense_date)
 
             await context.bot.send_message(
                 chat_id=update.effective_chat.id,
