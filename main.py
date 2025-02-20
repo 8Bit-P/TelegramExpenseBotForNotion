@@ -1,8 +1,10 @@
 import logging
+import socket
 from telegram import Update
 from telegram.ext import  ApplicationBuilder, ContextTypes, CommandHandler
 from dotenv import load_dotenv
 import os
+import time
 from datetime import datetime,timezone
 import re
 from notion_rest_operations import create_page, update_month_summary
@@ -40,6 +42,28 @@ logger = logging.getLogger(__name__)
 
 ##################################################################
 ################## Global variable definition end#################
+##################################################################
+
+##################################################################
+################## Wait for Internet Connection ##################
+##################################################################
+
+def wait_for_internet(host="8.8.8.8", port=53, timeout=3):
+    """Check if the internet connection is available by pinging a reliable host."""
+    while True:
+        try:
+            socket.setdefaulttimeout(timeout)
+            socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((host, port))
+            print("Internet connection established!")
+            return True
+        except socket.error:
+            print("Waiting for internet connection...")
+            time.sleep(5)
+
+wait_for_internet()
+
+##################################################################
+################## Boot functionality ############################
 ##################################################################
 
 async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE, isExpense: bool):
