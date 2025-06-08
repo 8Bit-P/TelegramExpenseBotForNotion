@@ -5,9 +5,10 @@ from telegram.ext import  ApplicationBuilder, ContextTypes, CommandHandler
 from dotenv import load_dotenv
 import os
 import time
-from datetime import datetime,timezone
+from datetime import datetime
 import re
 from notion_rest_operations import create_page, update_month_summary
+from supabase import create_client, Client
 
 ##################################################################
 ################## Global variable definition#####################
@@ -22,6 +23,10 @@ NOTION_TOKEN = os.getenv('NOTION_TOKEN')
 MAIN_DATABASE_ID = os.getenv('MAIN_DATABASE_ID')
 ACCOUNTS_DATABASE_ID = os.getenv('ACCOUNTS_DATABASE_ID')
 CHAT_ID = os.getenv('CHAT_ID')
+
+url: str = os.getenv("SUPABASE_URL")
+key: str = os.getenv("SUPABASE_KEY")
+supabase: Client = create_client(url, key)
 
 
 HELP_TEXT = """The following list of commands are available to use to add expenses to your Notion database:
@@ -65,6 +70,18 @@ wait_for_internet()
 ##################################################################
 ################## Boot functionality ############################
 ##################################################################
+
+async def insert_into_supabase(data: dict):
+    try:
+        response = supabase.table("expenses").insert(data).execute()
+        if response.status_code != 201:
+            logger.error(f"Supabase insert failed: {response.data}")
+            return False
+        return True
+    except Exception as e:
+        logger.error(f"Error inserting into Supabase: {e}")
+        return False
+
 
 async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE, isExpense: bool):
     if len(context.args) < 2:
@@ -122,7 +139,21 @@ async def addExpenseIncomeRow(update: Update, context: ContextTypes.DEFAULT_TYPE
 
         page_id = create_page(data, MAIN_DATABASE_ID)
         if page_id:
-          
+            # Prepare data for Supabase (adapt keys & format)
+            supabase_data = {
+                "description": description,
+                "amount": amount,
+                "date": expense_date,  # ISO string
+                "creation_date": datetime.now().isoformat(),  # or page creation time if available
+                "account": 0,  # since you use "RegularAccount" here, map to 0; adjust if dynamic
+                "expense": isExpense,
+                "tipo": None  # You can parse from description or add UI to specify if needed
+            }
+
+            success = await insert_into_supabase(supabase_data)
+            if not success:
+                await context.bot.send_message(chat_id=update.effective_chat.id, text="Warning: Failed to insert data into Supabase.")
+
             #Update the current month with expense
             update_month_summary(page_id, isExpense, expense_date)
 
