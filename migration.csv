@@ -1,114 +1,207 @@
 ﻿Description,Amount,Date,CreationDate,Account,Expense,Tipo
-collar azu,"35,00 €",1 de enero de 2025 1:00 (CET),31 de diciembre de 2024 11:17,RegularAccount,Yes,
-cafe regalo,"29,00 €",1 de enero de 2025 1:00 (CET),30 de diciembre de 2024 19:41,RegularAccount,Yes,
-basic fit,"30,00 €",30 de diciembre de 2024 10:45 (CET),30 de diciembre de 2024 9:45,RegularAccount,Yes,
-bolos,"6,00 €",29 de diciembre de 2024 22:35 (CET),29 de diciembre de 2024 21:35,RegularAccount,Yes,
-oreoshake,"3,00 €",29 de diciembre de 2024 22:34 (CET),29 de diciembre de 2024 21:35,RegularAccount,Yes,
-pelado,"15,00 €",29 de diciembre de 2024 16:30 (CET),27 de diciembre de 2024 15:30,RegularAccount,Yes,
-piarda azu,"20,00 €",29 de diciembre de 2024 2:12 (CET),29 de diciembre de 2024 1:12,RegularAccount,Yes,
-01/01 regalo nico,"50,00 €",29 de diciembre de 2024 1:52 (CET),29 de diciembre de 2024 0:52,RegularAccount,Yes,
-gasolina,"20,00 €",28 de diciembre de 2024 13:29 (CET),28 de diciembre de 2024 12:29,RegularAccount,Yes,
-sushi plaza,"27,00 €",28 de diciembre de 2024 0:26 (CET),27 de diciembre de 2024 23:26,RegularAccount,Yes,
-coltan,"16,00 €",25 de diciembre de 2024 16:30 (CET),27 de diciembre de 2024 15:30,RegularAccount,Yes,
-azu MYA,"30,00 €",24 de diciembre de 2024 16:30 (CET),27 de diciembre de 2024 15:30,RegularAccount,Yes,
-golden,"6,70 €",22 de diciembre de 2024 21:24 (CET),22 de diciembre de 2024 20:24,RegularAccount,Yes,
-venta,"22,00 €",22 de diciembre de 2024 17:08 (CET),22 de diciembre de 2024 16:08,RegularAccount,Yes,
-bk nico sabado,"34,00 €",22 de diciembre de 2024 0:05 (CET),21 de diciembre de 2024 23:05,RegularAccount,Yes,
-cervezas juanpa,"5,00 €",21 de diciembre de 2024 12:38 (CET),21 de diciembre de 2024 11:38,RegularAccount,Yes,
-gasolina papa,"20,00 €",20 de diciembre de 2024 21:27 (CET),20 de diciembre de 2024 20:27,RegularAccount,No,
-taxi,"10,00 €",19 de diciembre de 2024 1:36 (CET),19 de diciembre de 2024 0:36,RegularAccount,Yes,
-comida ronda,"22,00 €",15 de diciembre de 2024 16:47 (CET),15 de diciembre de 2024 15:47,RegularAccount,Yes,
-gasolina,"25,00 €",15 de diciembre de 2024 16:47 (CET),15 de diciembre de 2024 15:47,RegularAccount,Yes,
-farmacia,"17,00 €",14 de diciembre de 2024 22:16 (CET),14 de diciembre de 2024 21:16,RegularAccount,Yes,
-poe 2,"27,00 €",14 de diciembre de 2024 22:16 (CET),14 de diciembre de 2024 21:16,RegularAccount,Yes,
-salida materia oscura teatinos,"17,00 €",14 de diciembre de 2024 22:16 (CET),14 de diciembre de 2024 21:16,RegularAccount,Yes,
-gasolina,"30,00 €",13 de diciembre de 2024 15:43 (CET),13 de diciembre de 2024 14:43,RegularAccount,Yes,
-filamento PLA,"18,00 €",13 de diciembre de 2024 15:43 (CET),13 de diciembre de 2024 14:43,RegularAccount,Yes,
-gasolina,"20,00 €",12 de diciembre de 2024 19:30 (CET),12 de diciembre de 2024 18:30,RegularAccount,No,
-Cafetera regalo,"99,99 €",8 de diciembre de 2024 19:47 (CET),8 de diciembre de 2024 18:47,RegularAccount,Yes,
-parte del reservado noche vieja,"20,00 €",8 de diciembre de 2024 18:49 (CET),8 de diciembre de 2024 17:49,RegularAccount,Yes,Social
-cena dia,"14,00 €",7 de diciembre de 2024 22:12 (CET),7 de diciembre de 2024 21:12,RegularAccount,Yes,Comida
-azu poke,"12,00 €",7 de diciembre de 2024 14:41 (CET),7 de diciembre de 2024 13:41,RegularAccount,No,Comida
-Regalo amigo invisible,"19,00 €",7 de diciembre de 2024 12:57 (CET),7 de diciembre de 2024 11:57,RegularAccount,Yes,Imprevisto
-cena azu,"25,00 €",7 de diciembre de 2024 3:35 (CET),7 de diciembre de 2024 2:35,RegularAccount,Yes,Comida
-0.0 patos,"3,00 €",6 de diciembre de 2024 19:09 (CET),6 de diciembre de 2024 18:09,RegularAccount,Yes,Tapeo/Cerveza
-nomadas,"20,00 €",6 de diciembre de 2024 17:09 (CET),6 de diciembre de 2024 16:09,RegularAccount,Yes,Comida
-champions burguer,"33,25 €",6 de diciembre de 2024 2:09 (CET),6 de diciembre de 2024 1:09,RegularAccount,Yes,Comida
-vuelos Milan,"40,00 €",5 de diciembre de 2024 17:45 (CET),5 de diciembre de 2024 16:45,RegularAccount,Yes,Social
-tubo aluminio,"12,00 €",3 de diciembre de 2024 14:25 (CET),3 de diciembre de 2024 13:25,RegularAccount,Yes,Proyectos
-aldi,"12,00 €",2 de diciembre de 2024 22:35 (CET),2 de diciembre de 2024 21:35,RegularAccount,Yes,Comida
-helados azu,"8,00 €",1 de diciembre de 2024 22:39 (CET),1 de diciembre de 2024 21:39,RegularAccount,Yes,Comida
-bbq ivan,"8,00 €",1 de diciembre de 2024 13:33 (CET),1 de diciembre de 2024 12:33,RegularAccount,Yes,Comida
-salida plaza,"36,00 €",1 de diciembre de 2024 1:45 (CET),30 de noviembre de 2024 0:45,RegularAccount,Yes,Comida
-Pago Título,"133,00 €",1 de diciembre de 2024,28 de noviembre de 2024 10:26,SavingsAccount,Yes,Imprevisto
-MyInvestor Noviembre,"100,00 €",1 de diciembre de 2024,28 de noviembre de 2024 9:32,InvestmentAccount,Yes,
-Basic Fit diciembre,"29,99 €",1 de diciembre de 2024,28 de noviembre de 2024 9:27,RegularAccount,Yes,Gym
-Nomina Diciembre Avanade,"1415,00 €",1 de diciembre de 2024,28 de noviembre de 2024 9:26,SavingsAccount,No,
-pelao,"15,00 €",28 de noviembre de 2024 17:50 (CET),28 de noviembre de 2024 16:50,RegularAccount,Yes,
-merienda patos,"8,10 €",25 de noviembre de 2024 18:31 (CET),25 de noviembre de 2024 17:31,RegularAccount,Yes,Comida
-tarta azucena,"11,90 €",24 de noviembre de 2024 11:29 (CET),24 de noviembre de 2024 10:29,RegularAccount,Yes,Comida
-sushi,"23,00 €",17 de noviembre de 2024 23:57 (CET),17 de noviembre de 2024 22:57,RegularAccount,Yes,Comida
-golden,"5,00 €",17 de noviembre de 2024 23:57 (CET),17 de noviembre de 2024 22:57,RegularAccount,Yes,Tapeo/Cerveza
-golden,"5,00 €",17 de noviembre de 2024 1:38 (CET),17 de noviembre de 2024 0:38,RegularAccount,Yes,Tapeo/Cerveza
-yasaka,"22,50 €",16 de noviembre de 2024 23:40 (CET),16 de noviembre de 2024 22:40,RegularAccount,Yes,Comida
-goated camiseta,"37,00 €",16 de noviembre de 2024 1:33 (CET),16 de noviembre de 2024 0:33,RegularAccount,Yes,Ropa
-helado,"3,80 €",15 de noviembre de 2024 23:03 (CET),15 de noviembre de 2024 22:03,RegularAccount,Yes,Comida
-xpecado,"17,10 €",15 de noviembre de 2024 21:56 (CET),15 de noviembre de 2024 20:56,RegularAccount,Yes,Comida
-golden,"2,50 €",15 de noviembre de 2024 21:56 (CET),15 de noviembre de 2024 20:56,RegularAccount,Yes,Tapeo/Cerveza
-enter the gungeon,"3,00 €",14 de noviembre de 2024 21:53 (CET),14 de noviembre de 2024 20:53,RegularAccount,Yes,Juego
-aldi picoteo,"5,28 €",14 de noviembre de 2024 20:17 (CET),14 de noviembre de 2024 19:17,RegularAccount,Yes,Comida
-cerves videojuego,"2,50 €",10 de noviembre de 2024 22:09 (CET),10 de noviembre de 2024 21:09,RegularAccount,Yes,Tapeo/Cerveza
-xpecado,"22,00 €",10 de noviembre de 2024 0:25 (CET),9 de noviembre de 2024 23:25,RegularAccount,Yes,Comida
-camiseta zara,"16,00 €",9 de noviembre de 2024 19:43 (CET),9 de noviembre de 2024 18:43,RegularAccount,Yes,Ropa
-gasolina,"30,00 €",9 de noviembre de 2024 19:14 (CET),9 de noviembre de 2024 18:14,RegularAccount,Yes,Gasolina
-piarda,"14,00 €",9 de noviembre de 2024 0:41 (CET),8 de noviembre de 2024 23:41,RegularAccount,Yes,Comida
-golden,"2,40 €",9 de noviembre de 2024 0:40 (CET),8 de noviembre de 2024 23:40,RegularAccount,Yes,Tapeo/Cerveza
-golde,"4,90 €",9 de noviembre de 2024 0:40 (CET),8 de noviembre de 2024 23:40,RegularAccount,Yes,Tapeo/Cerveza
-retenedor,"35,00 €",5 de noviembre de 2024 19:26 (CET),5 de noviembre de 2024 18:26,RegularAccount,Yes,Imprevisto
-pelado,"15,00 €",5 de noviembre de 2024 1:00 (CET),5 de noviembre de 2024 17:56,RegularAccount,Yes,Pelado
-cervezas halloween,"25,00 €",4 de noviembre de 2024 16:09 (CET),4 de noviembre de 2024 15:09,RegularAccount,Yes,Tapeo/Cerveza
-casa rural devolucion,"25,50 €",4 de noviembre de 2024 16:08 (CET),4 de noviembre de 2024 15:08,RegularAccount,No,
-gasolina,"25,00 €",2 de noviembre de 2024 17:42 (CET),2 de noviembre de 2024 16:42,RegularAccount,Yes,Gasolina
-cine,"3,50 €",2 de noviembre de 2024 17:40 (CET),2 de noviembre de 2024 16:40,RegularAccount,Yes,Social
-cervezas y demas haloween,"12,51 €",2 de noviembre de 2024 17:39 (CET),2 de noviembre de 2024 16:39,RegularAccount,Yes,Tapeo/Cerveza
-gondor,"9,50 €",2 de noviembre de 2024 0:34 (CET),1 de noviembre de 2024 23:34,RegularAccount,Yes,Tapeo/Cerveza
-Partes ROBERT,"35,00 €",2 de noviembre de 2024,2 de noviembre de 2024 22:17,SavingsAccount,Yes,Proyectos
-golden,"2,50 €",1 de noviembre de 2024 21:07 (CET),1 de noviembre de 2024 20:07,RegularAccount,Yes,Tapeo/Cerveza
-gasolima,"40,00 €",1 de noviembre de 2024 14:12 (CET),29 de noviembre de 2024 13:12,RegularAccount,Yes,
-churros,"5,11 €",1 de noviembre de 2024 13:43 (CET),1 de noviembre de 2024 12:43,RegularAccount,Yes,Comida
-kebab,"7,00 €",1 de noviembre de 2024 1:00 (CET),31 de octubre de 2024 21:31,RegularAccount,Yes,Comida
-sudadera nike,"60,00 €",1 de noviembre de 2024 1:00 (CET),30 de octubre de 2024 23:24,RegularAccount,Yes,Ropa
-pull&bear,"155,00 €",1 de noviembre de 2024 1:00 (CET),30 de octubre de 2024 23:24,RegularAccount,Yes,Ropa
-cena nataly,"7,00 €",1 de noviembre de 2024 1:00 (CET),30 de octubre de 2024 9:10,RegularAccount,Yes,Comida
-basic-fit,"29,99 €",1 de noviembre de 2024 1:00 (CET),30 de octubre de 2024 9:10,RegularAccount,Yes,Subscripciones
-S&P500 myInvestor,"100,00 €",1 de noviembre de 2024,29 de octubre de 2024 8:48,InvestmentAccount,No,
-Nomina Noviembre Avanade,"1315,00 €",1 de noviembre de 2024,29 de octubre de 2024 8:45,SavingsAccount,No,
-Pago creditos extracurriculares (cuenta ahorro),"37,86 €",30 de octubre de 2024,30 de octubre de 2024 16:12,SavingsAccount,Yes,Imprevisto
-Cobro transaccion inmediate,"4,00 €",30 de octubre de 2024,30 de octubre de 2024 15:40,SavingsAccount,Yes,Imprevisto
-bk nico sabado,"12,55 €",26 de octubre de 2024 22:09 (CEST),26 de octubre de 2024 20:09,RegularAccount,Yes,Comida
-golden claudia chigo,"8,40 €",26 de octubre de 2024 2:35 (CEST),26 de octubre de 2024 0:35,RegularAccount,Yes,Tapeo/Cerveza
-chino oficina,"10,90 €",24 de octubre de 2024 17:41 (CEST),24 de octubre de 2024 15:41,RegularAccount,Yes,Comida
-dercutane,"6,50 €",23 de octubre de 2024 22:23 (CEST),23 de octubre de 2024 20:23,RegularAccount,Yes,Imprevisto
-gasolina papa,"20,00 €",21 de octubre de 2024 11:08 (CEST),21 de octubre de 2024 9:08,RegularAccount,No,Gasolina
-barras pan,"1,42 €",20 de octubre de 2024 22:59 (CEST),20 de octubre de 2024 20:59,RegularAccount,Yes,Comida
-mercadona dulces,"3,80 €",19 de octubre de 2024 2:00 (CEST),20 de octubre de 2024 20:59,RegularAccount,Yes,Comida
-Golden Juanlu Lidia Chincoa,"5,50 €",18 de octubre de 2024,19 de octubre de 2024 15:51,RegularAccount,Yes,Tapeo/Cerveza
-gasolina,"20,00 €",17 de octubre de 2024 21:10 (CEST),17 de octubre de 2024 19:10,RegularAccount,Yes,Gasolina
-cables protoboard,"5,45 €",16 de octubre de 2024 20:41 (CEST),16 de octubre de 2024 18:41,RegularAccount,Yes,Proyectos
-seven bubbles y alquimia,"34,00 €",13 de octubre de 2024 15:36 (CEST),13 de octubre de 2024 13:36,RegularAccount,Yes,Social
-ubereats,"5,00 €",12 de octubre de 2024 21:57 (CEST),12 de octubre de 2024 19:57,RegularAccount,Yes,Comida
-copas calvos,"17,50 €",12 de octubre de 2024 13:44 (CEST),12 de octubre de 2024 11:44,RegularAccount,Yes,Social
-efectivo gasto discoteca juanlu lidia..,"30,00 €",12 de octubre de 2024 2:00 (CEST),13 de octubre de 2024 19:35,RegularAccount,Yes,Social
-golden calvos,"8,60 €",12 de octubre de 2024 0:15 (CEST),11 de octubre de 2024 22:15,RegularAccount,Yes,Tapeo/Cerveza
-xpecado calvos,"20,60 €",11 de octubre de 2024 23:35 (CEST),11 de octubre de 2024 21:35,RegularAccount,Yes,Comida
-chino alicates y bolis,"4,91 €",9 de octubre de 2024 21:38 (CEST),9 de octubre de 2024 19:38,RegularAccount,Yes,Proyectos
-electronica registros y ALU,"63,00 €",9 de octubre de 2024 20:24 (CEST),9 de octubre de 2024 18:24,RegularAccount,Yes,Proyectos
-Proteina Myprotein Vainilla,"33,00 €",9 de octubre de 2024 19:15 (CEST),9 de octubre de 2024 17:15,RegularAccount,Yes,Gym
-Vino mama,"1,19 €",9 de octubre de 2024 2:00 (CEST),10 de octubre de 2024 9:38,RegularAccount,Yes,Comida
-Decatlon camiseta y pantalon gym,"39,98 €",7 de octubre de 2024 23:11 (CEST),7 de octubre de 2024 21:11,RegularAccount,Yes,Ropa
-Hotpot,"26,80 €",7 de octubre de 2024 1:16 (CEST),6 de octubre de 2024 23:16,RegularAccount,Yes,Comida
-Protoboards aliexpress,"12,80 €",6 de octubre de 2024 2:00 (CEST),7 de octubre de 2024 11:33,RegularAccount,Yes,Proyectos
-Inicial Ahorros,"5419,08 €",6 de octubre de 2024,6 de octubre de 2024 11:45,SavingsAccount,No,
-Gasolina,"20,00 €",5 de octubre de 2024 2:00 (CEST),5 de octubre de 2024 20:19,RegularAccount,Yes,
-Inicial Inversión,"100,00 €",5 de octubre de 2024,6 de octubre de 2024 11:47,InvestmentAccount,No,
-Inicial Cuenta Nómina,"1073,48 €",5 de octubre de 2024,6 de octubre de 2024 11:46,RegularAccount,No,
+basic fit,"30,00 €",11 de junio de 2025 9:56 (CEST),11 de junio de 2025 7:56,RegularAccount,Yes,Gym
+tapeo nataly,"17,00 €",10 de junio de 2025 1:31 (CEST),9 de junio de 2025 23:31,RegularAccount,Yes,Tapeo/Cerveza
+piarda,"13,00 €",9 de junio de 2025 0:51 (CEST),8 de junio de 2025 22:51,RegularAccount,Yes,Tapeo/Cerveza
+roco,"14,00 €",8 de junio de 2025 18:37 (CEST),8 de junio de 2025 16:37,RegularAccount,Yes,Social
+cena cine,"10,00 €",7 de junio de 2025 22:43 (CEST),7 de junio de 2025 20:43,RegularAccount,Yes,Social
+bañadoe,"20,00 €",7 de junio de 2025 21:34 (CEST),7 de junio de 2025 19:34,RegularAccount,Yes,Ropa
+bk,"15,00 €",7 de junio de 2025 6:11 (CEST),7 de junio de 2025 4:11,RegularAccount,Yes,Comida
+entrada cine,"7,00 €",7 de junio de 2025 6:11 (CEST),7 de junio de 2025 4:11,RegularAccount,Yes,Social
+gasolina,"30,00 €",6 de junio de 2025 19:01 (CEST),6 de junio de 2025 17:01,RegularAccount,Yes,Gasolina
+sushi,"27,00 €",4 de junio de 2025 1:50 (CEST),3 de junio de 2025 23:50,RegularAccount,Yes,Comida
+maletas tenerife,"28,00 €",2 de junio de 2025 13:38 (CEST),2 de junio de 2025 11:38,RegularAccount,Yes,Viajes
+aldi,"18,00 €",1 de junio de 2025 22:46 (CEST),31 de mayo de 2025 20:46,RegularAccount,Yes,Comida
+aruba y santa rita,"55,00 €",1 de junio de 2025 14:57 (CEST),31 de mayo de 2025 12:57,RegularAccount,Yes,Social
+rosario,"5,50 €",1 de junio de 2025 2:05 (CEST),1 de junio de 2025 0:05,RegularAccount,Yes,Comida
+nomina ciklum,"1557,00 €",1 de junio de 2025 2:00 (CEST),30 de mayo de 2025 14:01,RegularAccount,No,
+8bitpc,"11,00 €",1 de junio de 2025 2:00 (CEST),29 de mayo de 2025 23:25,RegularAccount,Yes,Proyectos
+Canarias alojamiento,"127,00 €",27 de mayo de 2025 0:46 (CEST),26 de mayo de 2025 22:46,RegularAccount,Yes,Viajes
+vuelos gran canaria,"147,00 €",26 de mayo de 2025 1:10 (CEST),25 de mayo de 2025 23:10,RegularAccount,Yes,Viajes
+ensalada de pasta,"5,00 €",24 de mayo de 2025 22:44 (CEST),24 de mayo de 2025 20:44,RegularAccount,Yes,
+regalo juanlu,"7,00 €",23 de mayo de 2025 18:28 (CEST),23 de mayo de 2025 16:28,RegularAccount,Yes,
+comida ciklum,"18,50 €",23 de mayo de 2025 17:13 (CEST),23 de mayo de 2025 15:13,RegularAccount,Yes,
+pollo,"3,45 €",21 de mayo de 2025 20:59 (CEST),21 de mayo de 2025 18:59,RegularAccount,Yes,
+crema solar,"5,00 €",21 de mayo de 2025 18:51 (CEST),21 de mayo de 2025 16:51,RegularAccount,Yes,
+reembolso protector,"7,00 €",21 de mayo de 2025 15:14 (CEST),21 de mayo de 2025 13:14,RegularAccount,No,
+palomitas,"11,50 €",19 de mayo de 2025 1:00 (CEST),18 de mayo de 2025 23:00,RegularAccount,Yes,Comida
+cine,"7,00 €",18 de mayo de 2025 15:29 (CEST),18 de mayo de 2025 13:29,RegularAccount,Yes,Social
+nomadas,"20,00 €",17 de mayo de 2025 23:49 (CEST),17 de mayo de 2025 21:49,RegularAccount,Yes,Comida
+granizada,"3,50 €",17 de mayo de 2025 18:10 (CEST),17 de mayo de 2025 16:10,RegularAccount,Yes,Tapeo/Cerveza
+guadalindie,"7,00 €",17 de mayo de 2025 14:47 (CEST),17 de mayo de 2025 12:47,RegularAccount,Yes,Tapeo/Cerveza
+gasolima,"30,00 €",16 de mayo de 2025 20:20 (CEST),16 de mayo de 2025 18:20,RegularAccount,Yes,Gasolina
+pan,"9,00 €",15 de mayo de 2025 10:11 (CEST),15 de mayo de 2025 8:11,RegularAccount,Yes,
+basic fit,"30,00 €",14 de mayo de 2025 11:06 (CEST),14 de mayo de 2025 9:06,RegularAccount,Yes,Subscripciones
+aldo,"8,00 €",13 de mayo de 2025 22:02 (CEST),13 de mayo de 2025 20:02,RegularAccount,Yes,Comida
+spoty,"3,00 €",13 de mayo de 2025 11:26 (CEST),13 de mayo de 2025 9:26,RegularAccount,Yes,Subscripciones
+campero,"10,00 €",11 de mayo de 2025 1:07 (CEST),10 de mayo de 2025 23:07,RegularAccount,Yes,Tapeo/Cerveza
+copa ivan,"5,00 €",10 de mayo de 2025 21:03 (CEST),10 de mayo de 2025 19:03,RegularAccount,No,
+aruba,"28,00 €",10 de mayo de 2025 17:18 (CEST),10 de mayo de 2025 15:18,RegularAccount,Yes,Social
+estudio,"50,00 €",10 de mayo de 2025 17:18 (CEST),10 de mayo de 2025 15:18,RegularAccount,Yes,Social
+pull verano,"52,00 €",9 de mayo de 2025 17:20 (CEST),9 de mayo de 2025 15:20,RegularAccount,Yes,Ropa
+baterias canon,"22,00 €",9 de mayo de 2025 11:35 (CEST),9 de mayo de 2025 9:35,RegularAccount,Yes,Capricho
+guadalindie,"5,00 €",8 de mayo de 2025 23:31 (CEST),8 de mayo de 2025 21:31,RegularAccount,Yes,Social
+tapeo piarda,"17,50 €",7 de mayo de 2025 1:09 (CEST),6 de mayo de 2025 23:10,RegularAccount,Yes,Tapeo/Cerveza
+lidia bbq,"18,00 €",7 de mayo de 2025 1:09 (CEST),6 de mayo de 2025 23:09,RegularAccount,No,
+cerveza,"2,50 €",7 de mayo de 2025 0:43 (CEST),6 de mayo de 2025 22:43,RegularAccount,Yes,Tapeo/Cerveza
+cosas peoteicas aldi,"9,10 €",6 de mayo de 2025 20:13 (CEST),6 de mayo de 2025 18:13,RegularAccount,Yes,Gym
+proteina,"34,90 €",5 de mayo de 2025 18:40 (CEST),5 de mayo de 2025 16:40,RegularAccount,Yes,Gym
+protector pantalla movil,"7,00 €",5 de mayo de 2025 12:58 (CEST),5 de mayo de 2025 10:58,RegularAccount,Yes,Imprevisto
+casa rural,"2,88 €",4 de mayo de 2025 16:10 (CEST),4 de mayo de 2025 14:10,RegularAccount,Yes,Viajes
+pelao,"15,00 €",1 de mayo de 2025 11:44 (CEST),1 de mayo de 2025 9:44,RegularAccount,Yes,Viajes
+ciklum nomina,"1556,00 €",1 de mayo de 2025 2:00 (CEST),8 de mayo de 2025 13:34,RegularAccount,No,Pelado
+casa rural,"40,00 €",1 de mayo de 2025 2:00 (CEST),26 de abril de 2025 22:52,RegularAccount,Yes,Viajes
+casa rural septoembre adelanto,"18,20 €",1 de mayo de 2025 2:00 (CEST),20 de abril de 2025 11:47,RegularAccount,Yes,Viajes
+Raton logitech,"81,81 €",1 de mayo de 2025 2:00 (CEST),6 de abril de 2025 20:05,RegularAccount,Yes,Capricho
+casa rural comida,"28,50 €",30 de abril de 2025 23:49 (CEST),30 de abril de 2025 21:49,RegularAccount,Yes,"Comida, Viajes"
+ciklum gusto,"16,50 €",30 de abril de 2025 17:26 (CEST),30 de abril de 2025 15:26,RegularAccount,Yes,Comida
+aeropuerto,"15,00 €",29 de abril de 2025 4:42 (CEST),29 de abril de 2025 2:42,RegularAccount,Yes,Viajes
+pinta,"4,00 €",28 de abril de 2025 3:00 (CEST),28 de abril de 2025 1:00,RegularAccount,Yes,Viajes
+pinta,"8,00 €",28 de abril de 2025 2:25 (CEST),28 de abril de 2025 0:25,RegularAccount,Yes,Viajes
+galletas,"4,00 €",27 de abril de 2025 18:49 (CEST),27 de abril de 2025 16:49,RegularAccount,Yes,Viajes
+haggis pastry,"5,00 €",27 de abril de 2025 12:28 (CEST),27 de abril de 2025 10:28,RegularAccount,Yes,Viajes
+cena,"5,00 €",25 de abril de 2025 22:48 (CEST),25 de abril de 2025 20:49,RegularAccount,Yes,Viajes
+snackd aeropuerto,"5,00 €",25 de abril de 2025 22:39 (CEST),25 de abril de 2025 20:39,RegularAccount,Yes,Viajes
+mochila vuelos,"25,00 €",19 de abril de 2025 17:38 (CEST),19 de abril de 2025 15:38,RegularAccount,Yes,Viajes
+cambio libras,"122,00 €",19 de abril de 2025 17:32 (CEST),19 de abril de 2025 15:32,RegularAccount,Yes,Viajes
+gasolina,"20,00 €",18 de abril de 2025 20:08 (CEST),18 de abril de 2025 18:08,RegularAccount,Yes,Gasolina
+alojamiento edimburgo,"95,00 €",18 de abril de 2025 15:50 (CEST),18 de abril de 2025 13:50,RegularAccount,Yes,Viajes
+basic fit,"30,00 €",16 de abril de 2025 10:41 (CEST),16 de abril de 2025 8:41,RegularAccount,Yes,Gym
+powerbank,"30,00 €",14 de abril de 2025 13:22 (CEST),14 de abril de 2025 11:22,RegularAccount,Yes,Capricho
+compras ropa y botas,"45,00 €",13 de abril de 2025 18:04 (CEST),13 de abril de 2025 16:04,RegularAccount,Yes,Ropa
+smash hero,"17,00 €",13 de abril de 2025 18:04 (CEST),13 de abril de 2025 16:04,RegularAccount,Yes,Comida
+spotify premium,"3,00 €",13 de abril de 2025 12:58 (CEST),13 de abril de 2025 10:58,RegularAccount,Yes,Subscripciones
+chino,"21,00 €",12 de abril de 2025 19:06 (CEST),12 de abril de 2025 17:06,RegularAccount,Yes,Comida
+carrilleras,"40,00 €",12 de abril de 2025 19:06 (CEST),12 de abril de 2025 17:06,RegularAccount,Yes,Comida
+pelao,"15,00 €",11 de abril de 2025 20:57 (CEST),11 de abril de 2025 18:57,RegularAccount,Yes,Pelado
+aldi,"4,00 €",10 de abril de 2025 21:00 (CEST),10 de abril de 2025 19:00,RegularAccount,Yes,Comida
+hacienda devolucion,"48,50 €",10 de abril de 2025 10:24 (CEST),10 de abril de 2025 8:24,RegularAccount,No,
+feuvert,"20,00 €",9 de abril de 2025 21:47 (CEST),9 de abril de 2025 19:47,RegularAccount,Yes,Imprevisto
+aldi,"5,47 €",9 de abril de 2025 20:46 (CEST),9 de abril de 2025 18:46,RegularAccount,Yes,Comida
+8bitpc,"14,00 €",9 de abril de 2025 0:49 (CEST),8 de abril de 2025 22:49,RegularAccount,Yes,Proyectos
+metro,"5,00 €",8 de abril de 2025 0:32 (CEST),7 de abril de 2025 22:32,RegularAccount,Yes,Imprevisto
+cafeteria,"6,00 €",6 de abril de 2025 21:39 (CEST),6 de abril de 2025 19:39,RegularAccount,Yes,Comida
+roco,"18,00 €",6 de abril de 2025 16:13 (CEST),6 de abril de 2025 14:13,RegularAccount,Yes,Social
+ubereats,"13,00 €",6 de abril de 2025 13:09 (CEST),6 de abril de 2025 11:09,RegularAccount,Yes,Comida
+cabify moto,"6,86 €",6 de abril de 2025 3:18 (CEST),6 de abril de 2025 1:18,RegularAccount,Yes,Social
+cervezas,"4,50 €",6 de abril de 2025 1:08 (CEST),5 de abril de 2025 23:08,RegularAccount,Yes,Tapeo/Cerveza
+ropa,"36,00 €",5 de abril de 2025 20:17 (CEST),5 de abril de 2025 18:17,RegularAccount,Yes,Ropa
+trade republic,"8,45 €",5 de abril de 2025 17:17 (CEST),5 de abril de 2025 15:17,RegularAccount,No,
+campero diech,"11,00 €",5 de abril de 2025 1:29 (CEST),4 de abril de 2025 23:29,RegularAccount,Yes,Comida
+infinity,"14,00 €",4 de abril de 2025 1:49 (CEST),3 de abril de 2025 23:49,RegularAccount,Yes,Social
+fermento,"6,00 €",3 de abril de 2025 17:00 (CEST),3 de abril de 2025 15:00,RegularAccount,Yes,Comida
+dercutane,"6,80 €",2 de abril de 2025 20:54 (CEST),2 de abril de 2025 18:54,RegularAccount,Yes,Imprevisto
+straps,"10,00 €",1 de abril de 2025 20:23 (CEST),1 de abril de 2025 18:23,RegularAccount,Yes,Capricho
+nomina ciklum,"1556,00 €",1 de abril de 2025 2:00 (CEST),31 de marzo de 2025 14:05,RegularAccount,No,
+gasolina,"20,00 €",1 de abril de 2025 2:00 (CEST),28 de marzo de 2025 20:49,RegularAccount,Yes,Gasolina
+aldi,"6,00 €",31 de marzo de 2025 20:47 (CEST),31 de marzo de 2025 18:47,RegularAccount,Yes,Comida
+casa juanlu,"27,00 €",29 de marzo de 2025 3:15 (CET),29 de marzo de 2025 2:15,RegularAccount,Yes,Tapeo/Cerveza
+chino,"10,00 €",28 de marzo de 2025 10:32 (CET),28 de marzo de 2025 9:32,RegularAccount,Yes,Tapeo/Cerveza
+aldi,"3,47 €",28 de marzo de 2025 10:31 (CET),28 de marzo de 2025 9:31,RegularAccount,Yes,Comida
+rosario,"7,70 €",26 de marzo de 2025 9:31 (CET),26 de marzo de 2025 8:31,RegularAccount,Yes,Comida
+mexicano,"22,40 €",23 de marzo de 2025 16:34 (CET),23 de marzo de 2025 15:34,RegularAccount,Yes,Comida
+gitana loca,"4,00 €",23 de marzo de 2025 1:53 (CET),23 de marzo de 2025 0:53,RegularAccount,Yes,Comida
+pelao,"15,00 €",22 de marzo de 2025 14:30 (CET),22 de marzo de 2025 13:30,RegularAccount,Yes,Pelado
+ETA authorization,"12,37 €",22 de marzo de 2025 14:30 (CET),22 de marzo de 2025 13:30,RegularAccount,Yes,Viajes
+tarjeta revolut,"7,00 €",21 de marzo de 2025 10:50 (CET),21 de marzo de 2025 9:50,RegularAccount,Yes,Viajes
+gallo negro,"8,00 €",19 de marzo de 2025 23:46 (CET),19 de marzo de 2025 22:46,RegularAccount,Yes,Comida
+gusto,"20,00 €",19 de marzo de 2025 15:54 (CET),19 de marzo de 2025 14:54,RegularAccount,Yes,Comida
+basic fit,"30,00 €",19 de marzo de 2025 8:41 (CET),19 de marzo de 2025 7:41,RegularAccount,Yes,Gym
+golden y piarda,"15,00 €",18 de marzo de 2025 0:11 (CET),17 de marzo de 2025 23:11,RegularAccount,Yes,Tapeo/Cerveza
+papa edenred,"20,00 €",16 de marzo de 2025 14:31 (CET),16 de marzo de 2025 13:31,RegularAccount,No,
+vuelos edimburgo,"100,00 €",15 de marzo de 2025 18:19 (CET),15 de marzo de 2025 17:19,RegularAccount,Yes,Viajes
+spotify familiar premium,"3,00 €",14 de marzo de 2025 22:06 (CET),14 de marzo de 2025 21:06,RegularAccount,Yes,Subscripciones
+golden,"2,50 €",14 de marzo de 2025 22:06 (CET),14 de marzo de 2025 21:06,RegularAccount,Yes,Tapeo/Cerveza
+gasolima,"10,00 €",14 de marzo de 2025 18:10 (CET),14 de marzo de 2025 17:10,RegularAccount,Yes,Gasolina
+tacos lyon,"14,00 €",14 de marzo de 2025 17:15 (CET),14 de marzo de 2025 16:15,RegularAccount,Yes,Comida
+aldi,"1,90 €",12 de marzo de 2025 20:35 (CET),12 de marzo de 2025 19:35,RegularAccount,Yes,Comida
+pans cafe,"6,00 €",9 de marzo de 2025 20:00 (CET),9 de marzo de 2025 19:00,RegularAccount,Yes,Comida
+sushi cafe,"30,00 €",8 de marzo de 2025 17:19 (CET),8 de marzo de 2025 16:19,RegularAccount,Yes,Comida
+lector tarjeta sd,"12,00 €",6 de marzo de 2025 20:26 (CET),6 de marzo de 2025 19:26,RegularAccount,Yes,Capricho
+goiko,"18,00 €",5 de marzo de 2025 15:46 (CET),5 de marzo de 2025 14:46,RegularAccount,Yes,Comida
+cañas golden,"5,00 €",4 de marzo de 2025 23:19 (CET),4 de marzo de 2025 22:19,RegularAccount,Yes,Tapeo/Cerveza
+fiesta claudia rosse,"12,00 €",3 de marzo de 2025 23:41 (CET),3 de marzo de 2025 22:41,RegularAccount,Yes,Social
+aldi,"3,00 €",3 de marzo de 2025 20:33 (CET),3 de marzo de 2025 19:33,RegularAccount,Yes,Comida
+outfit discoteca,"80,00 €",1 de marzo de 2025 18:08 (CET),1 de marzo de 2025 17:08,RegularAccount,Yes,Ropa
+pelado,"15,00 €",1 de marzo de 2025 14:51 (CET),1 de marzo de 2025 13:51,RegularAccount,Yes,Pelado
+Nomina ciklun febrero,"1425,00 €",1 de marzo de 2025 1:00 (CET),27 de febrero de 2025 14:32,RegularAccount,No,
+ferrata,"60,00 €",28 de febrero de 2025 13:36 (CET),28 de febrero de 2025 12:36,RegularAccount,Yes,Social
+ruleta,"10,00 €",28 de febrero de 2025 0:53 (CET),27 de febrero de 2025 23:53,RegularAccount,No,
+chaca burger,"14,40 €",27 de febrero de 2025 23:32 (CET),27 de febrero de 2025 22:32,RegularAccount,Yes,Comida
+gasolima,"30,00 €",27 de febrero de 2025 20:00 (CET),27 de febrero de 2025 19:00,RegularAccount,Yes,Gasolina
+canon y sd 01/03/2025,"810,00 €",27 de febrero de 2025 18:16 (CET),27 de febrero de 2025 17:16,RegularAccount,Yes,Capricho
+regalo mamuar,"10,60 €",26 de febrero de 2025 19:40 (CET),26 de febrero de 2025 18:40,RegularAccount,Yes,Regalo
+dia,"6,00 €",25 de febrero de 2025 21:33 (CET),25 de febrero de 2025 20:33,RegularAccount,Yes,Comida
+santa rita,"17,00 €",25 de febrero de 2025 21:33 (CET),25 de febrero de 2025 20:33,RegularAccount,Yes,Social
+cocina,"14,00 €",24 de febrero de 2025 20:42 (CET),24 de febrero de 2025 19:42,RegularAccount,Yes,Comida
+padel,"4,00 €",23 de febrero de 2025 13:12 (CET),23 de febrero de 2025 12:12,RegularAccount,Yes,Social
+port royale,"10,00 €",23 de febrero de 2025 10:36 (CET),23 de febrero de 2025 9:36,RegularAccount,Yes,Tapeo/Cerveza
+ropa y nike blazers,"95,00 €",20 de febrero de 2025 20:18 (CET),20 de febrero de 2025 19:18,RegularAccount,Yes,Ropa
+team building,"12,00 €",19 de febrero de 2025 13:28 (CET),19 de febrero de 2025 12:28,RegularAccount,Yes,Comida
+basic fit,"30,00 €",19 de febrero de 2025 13:15 (CET),19 de febrero de 2025 12:15,RegularAccount,Yes,Gym
+gasolina,"30,00 €",16 de febrero de 2025 17:39 (CET),16 de febrero de 2025 16:39,RegularAccount,Yes,Gasolina
+chino,"6,80 €",16 de febrero de 2025 15:29 (CET),16 de febrero de 2025 14:29,RegularAccount,Yes,Tapeo/Cerveza
+cañas,"6,00 €",12 de febrero de 2025 21:13 (CET),12 de febrero de 2025 20:13,RegularAccount,Yes,Tapeo/Cerveza
+bk,"11,00 €",12 de febrero de 2025 21:13 (CET),12 de febrero de 2025 20:13,RegularAccount,Yes,Comida
+sushi,"27,00 €",9 de febrero de 2025 11:27 (CET),9 de febrero de 2025 10:27,RegularAccount,Yes,Comida
+golden,"5,00 €",8 de febrero de 2025 21:19 (CET),8 de febrero de 2025 20:19,RegularAccount,Yes,Tapeo/Cerveza
+grammys,"8,30 €",8 de febrero de 2025 2:11 (CET),8 de febrero de 2025 1:11,RegularAccount,Yes,Tapeo/Cerveza
+dercutane,"6,84 €",6 de febrero de 2025 20:48 (CET),6 de febrero de 2025 19:48,RegularAccount,Yes,Imprevisto
+cabñes robert,"5,25 €",6 de febrero de 2025 20:48 (CET),6 de febrero de 2025 19:48,RegularAccount,Yes,Proyectos
+pelao,"15,00 €",6 de febrero de 2025 20:48 (CET),6 de febrero de 2025 19:48,RegularAccount,Yes,Pelado
+paco jose,"7,00 €",5 de febrero de 2025 15:52 (CET),5 de febrero de 2025 14:52,RegularAccount,Yes,Capricho
+gasolina,"30,00 €",2 de febrero de 2025 14:16 (CET),2 de febrero de 2025 13:16,RegularAccount,Yes,Gasolina
+altitude,"12,00 €",2 de febrero de 2025 14:16 (CET),2 de febrero de 2025 13:16,RegularAccount,Yes,Social
+hormiguero,"14,20 €",1 de febrero de 2025 22:57 (CET),1 de febrero de 2025 21:57,RegularAccount,Yes,Tapeo/Cerveza
+cervezas,"5,00 €",1 de febrero de 2025 21:29 (CET),1 de febrero de 2025 20:29,RegularAccount,Yes,Tapeo/Cerveza
+robert cable y jumpers,"12,82 €",1 de febrero de 2025 17:09 (CET),1 de febrero de 2025 16:09,RegularAccount,Yes,Proyectos
+proteina y barritas hsn,"55,00 €",1 de febrero de 2025 16:21 (CET),1 de febrero de 2025 15:21,RegularAccount,Yes,Gym
+Ciklum nomina,"1296,70 €",1 de febrero de 2025 1:00 (CET),31 de enero de 2025 21:35,RegularAccount,No,
+dentista retendor nuevo,"130,00 €",30 de enero de 2025 22:18 (CET),30 de enero de 2025 21:18,RegularAccount,Yes,
+focaccia,"12,00 €",26 de enero de 2025 21:11 (CET),26 de enero de 2025 20:11,RegularAccount,Yes,
+pasta,"13,00 €",26 de enero de 2025 15:18 (CET),26 de enero de 2025 14:18,RegularAccount,Yes,
+desayuno Milan,"8,40 €",26 de enero de 2025 13:54 (CET),26 de enero de 2025 12:54,RegularAccount,Yes,
+paraguas,"5,00 €",26 de enero de 2025 12:35 (CET),26 de enero de 2025 11:35,RegularAccount,Yes,
+trenes domingo y lunes,"12,00 €",26 de enero de 2025 12:17 (CET),26 de enero de 2025 11:17,RegularAccount,Yes,
+cervezas carrefour,"3,78 €",26 de enero de 2025 4:58 (CET),26 de enero de 2025 3:58,RegularAccount,Yes,
+dumplings nataly,"7,00 €",26 de enero de 2025 4:56 (CET),26 de enero de 2025 3:56,RegularAccount,Yes,
+discoteca milan,"20,00 €",26 de enero de 2025 4:35 (CET),26 de enero de 2025 3:35,RegularAccount,Yes,
+ropero Milan,"6,00 €",26 de enero de 2025 4:27 (CET),26 de enero de 2025 3:27,RegularAccount,Yes,
+miñan comida,"7,20 €",26 de enero de 2025 0:17 (CET),25 de enero de 2025 23:17,RegularAccount,Yes,
+milan tren,"4,00 €",25 de enero de 2025 14:13 (CET),25 de enero de 2025 13:13,RegularAccount,Yes,
+xpecado,"20,00 €",24 de enero de 2025 16:45 (CET),24 de enero de 2025 15:45,RegularAccount,Yes,
+hotel zurich vuelta,"42,00 €",24 de enero de 2025 9:17 (CET),24 de enero de 2025 8:17,RegularAccount,Yes,
+basic fit,"30,00 €",22 de enero de 2025 8:08 (CET),22 de enero de 2025 7:08,RegularAccount,Yes,
+vuelos japon,"660,00 €",20 de enero de 2025 13:34 (CET),20 de enero de 2025 12:34,RegularAccount,Yes,
+sushi,"30,00 €",19 de enero de 2025 0:34 (CET),18 de enero de 2025 23:34,RegularAccount,Yes,
+dorado,"11,30 €",18 de enero de 2025 16:38 (CET),18 de enero de 2025 15:38,RegularAccount,Yes,
+golde,"2,50 €",17 de enero de 2025 23:19 (CET),17 de enero de 2025 22:19,RegularAccount,Yes,
+piarda,"8,80 €",17 de enero de 2025 23:19 (CET),17 de enero de 2025 22:19,RegularAccount,Yes,
+snacks cine,"8,00 €",17 de enero de 2025 0:23 (CET),16 de enero de 2025 23:23,RegularAccount,Yes,
+nvidia,"10,00 €",16 de enero de 2025 16:44 (CET),16 de enero de 2025 15:44,RegularAccount,Yes,
+electronica robert,"11,30 €",15 de enero de 2025 18:46 (CET),15 de enero de 2025 17:46,RegularAccount,Yes,Proyectos
+nosferatu cine,"6,90 €",15 de enero de 2025 13:36 (CET),15 de enero de 2025 12:36,RegularAccount,Yes,Social
+ciklum gotham,"19,00 €",14 de enero de 2025 16:05 (CET),14 de enero de 2025 15:05,RegularAccount,Yes,Comida
+avanade finiquito,"1727,00 €",14 de enero de 2025 11:42 (CET),14 de enero de 2025 10:42,RegularAccount,No,
+patelin ciklum,"23,00 €",13 de enero de 2025 20:02 (CET),13 de enero de 2025 19:02,RegularAccount,Yes,Comida
+regalo dani,"10,00 €",11 de enero de 2025 18:20 (CET),11 de enero de 2025 17:20,RegularAccount,Yes,Regalo
+el refugio,"14,75 €",11 de enero de 2025 18:20 (CET),11 de enero de 2025 17:20,RegularAccount,Yes,Comida
+red bul,"0,80 €",11 de enero de 2025 18:20 (CET),11 de enero de 2025 17:20,RegularAccount,Yes,Comida
+lapices cara balatro,"3,00 €",11 de enero de 2025 18:20 (CET),11 de enero de 2025 17:20,RegularAccount,Yes,Social
+merca bocadillo,"13,00 €",11 de enero de 2025 18:20 (CET),11 de enero de 2025 17:20,RegularAccount,Yes,Comida
+azu bendito,"40,00 €",8 de enero de 2025 0:40 (CET),7 de enero de 2025 23:40,RegularAccount,Yes,Comida
+italiano ciklum,"16,00 €",7 de enero de 2025 15:18 (CET),7 de enero de 2025 14:18,RegularAccount,Yes,Comida
+cafe,"2,05 €",7 de enero de 2025 10:14 (CET),7 de enero de 2025 9:14,RegularAccount,Yes,Comida
+disfraz cumplr lidia y fani,"19,00 €",6 de enero de 2025 16:58 (CET),6 de enero de 2025 15:58,RegularAccount,Yes,Social
+regalo lidia,"9,00 €",6 de enero de 2025 16:58 (CET),6 de enero de 2025 15:58,RegularAccount,Yes,Regalo
+hadko partitura,"3,00 €",6 de enero de 2025 14:11 (CET),6 de enero de 2025 13:11,RegularAccount,Yes,Capricho
+abuelos reyes,"50,00 €",6 de enero de 2025 13:12 (CET),6 de enero de 2025 12:12,RegularAccount,No,
+gasolina,"30,00 €",5 de enero de 2025 1:53 (CET),5 de enero de 2025 0:53,RegularAccount,Yes,Gasolina
+indio azu,"45,00 €",5 de enero de 2025 1:51 (CET),5 de enero de 2025 0:51,RegularAccount,Yes,Comida
+caja ROBERT,"26,00 €",1 de enero de 2025 18:24 (CET),1 de enero de 2025 17:24,RegularAccount,Yes,Proyectos
+salvo,"50,00 €",1 de enero de 2025 1:47 (CET),1 de enero de 2025 0:47,RegularAccount,No,
+reservado jaleo,"10,00 €",1 de enero de 2025 1:00 (CET),31 de diciembre de 2024 18:07,RegularAccount,Yes,Social
+collar azu,"35,00 €",1 de enero de 2025 1:00 (CET),31 de diciembre de 2024 11:17,RegularAccount,Yes,Regalo
+cafe regalo,"29,00 €",1 de enero de 2025 1:00 (CET),30 de diciembre de 2024 19:41,RegularAccount,Yes,Regalo
+,,,11 de junio de 2025 9:59,,No,
+,,,11 de junio de 2025 9:59,,No,
+,,,13 de mayo de 2025 11:32,,No,

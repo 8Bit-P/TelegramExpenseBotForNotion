@@ -74,9 +74,11 @@ wait_for_internet()
 async def insert_into_supabase(data: dict):
     try:
         response = supabase.table("expenses").insert(data).execute()
-        if response.status_code != 201:
-            logger.error(f"Supabase insert failed: {response.data}")
+        
+        if not response.data:
+            logger.error("Supabase insert failed: No data returned.")
             return False
+
         return True
     except Exception as e:
         logger.error(f"Error inserting into Supabase: {e}")
