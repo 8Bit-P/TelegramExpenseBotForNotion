@@ -27,6 +27,7 @@
     "@radix-ui/react-toggle-group": "^1.1.10",
     "@radix-ui/react-tooltip": "^1.2.7",
     "@shadcn/ui": "^0.0.4",
+    "@supabase/supabase-js": "^2.52.0",
     "@tabler/icons-react": "^3.34.0",
     "@tailwindcss/vite": "^4.1.10",
     "@tanstack/react-table": "^8.21.3",
