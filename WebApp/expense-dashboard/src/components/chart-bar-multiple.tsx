@@ -34,6 +34,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+import type { Expense } from "@/interfaces/expense.interface"
 
 // --------------------------
 // 1. Example Registry Shape
@@ -53,60 +54,66 @@ type Registry = {
 // 2. Mock Data
 // --------------------------
 
-const mockRegistries: Registry[] = [
+const mockRegistries: Expense[] = [
   {
-    id: "1",
+    id: 1,
     description: "Freelance",
     amount: 2000,
-    date: "2024-05-01",
+    date: new Date("2024-05-01"),
+    creation_date: new Date("2024-05-01"),
     account: 1,
     expense: false,
-    type: "income",
+    tipo: "income",
   },
   {
-    id: "2",
+    id: 2,
     description: "Groceries",
     amount: 400,
-    date: "2024-05-02",
+    date: new Date("2024-05-02"),
+    creation_date: new Date("2024-05-01"),
     account: 1,
     expense: true,
-    type: "food",
+    tipo: "food",
   },
   {
-    id: "3",
+    id: 3,
     description: "Consulting",
     amount: 1200,
-    date: "2024-06-11",
+    date: new Date("2024-06-11"),
+    creation_date: new Date("2024-05-01"),
     account: 1,
     expense: false,
-    type: "income",
+    tipo: "income",
   },
   {
-    id: "4",
+    id: 4,
     description: "Utilities",
     amount: 230,
-    date: "2024-06-12",
+    date: new Date("2024-06-12"),
+    creation_date: new Date("2024-05-01"),
     account: 1,
     expense: true,
-    type: "bills",
+    tipo: "bills",
   },
   {
-    id: "5",
+    id: 5,
     description: "Bonus",
     amount: 800,
-    date: "2024-07-01",
+    date: new Date("2024-07-01"),
+    creation_date: new Date("2024-05-01"),
     account: 1,
     expense: false,
-    type: "bonus",
+    tipo: "bonus",
   },
   {
-    id: "6",
+    id:6,
     description: "Rent",
     amount: 1000,
-    date: "2024-07-05",
+    date: new Date("2024-07-05"),
+    creation_date: new Date("2024-05-01"),
     account: 1,
     expense: true,
-    type: "housing",
+    tipo: "housing",
   },
 ]
 
@@ -130,7 +137,7 @@ const chartConfig = {
 // --------------------------
 
 function groupRegistries(
-  registries: Registry[],
+  registries: Expense[],
   range: "30d" | "180d" | "365d"
 ) {
   const today = new Date("2024-07-22")
