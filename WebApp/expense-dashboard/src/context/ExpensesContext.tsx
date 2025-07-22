@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { supabase } from "@/lib/supabase";
 import type { Expense } from "@/interfaces/expense.interface";
 
@@ -49,6 +55,7 @@ export function ExpensesProvider({ children }: { children: ReactNode }) {
 
 export function useExpenses() {
   const context = useContext(ExpensesContext);
-  if (!context) throw new Error("useExpenses must be used within ExpensesProvider");
+  if (!context)
+    throw new Error("useExpenses must be used within ExpensesProvider");
   return context;
 }

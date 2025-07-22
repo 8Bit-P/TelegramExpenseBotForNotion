@@ -1,13 +1,7 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-} from "recharts"
+import * as React from "react";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import {
   Card,
@@ -16,245 +10,184 @@ import {
   CardDescription,
   CardContent,
   CardAction,
-} from "@/components/ui/card"
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@/components/ui/toggle-group"
+} from "@/components/ui/card";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
-import type { Expense } from "@/interfaces/expense.interface"
+} from "@/components/ui/chart";
+import { useExpenses } from "@/context/ExpensesContext";
+import type { Expense } from "@/interfaces/expense.interface";
 
-// --------------------------
-// 1. Example Registry Shape
-// --------------------------
-
-type Registry = {
-  id: string
-  description: string
-  amount: number
-  date: string // ISO format
-  account: number
-  expense: boolean
-  type: string
-}
-
-// --------------------------
-// 2. Mock Data
-// --------------------------
-
-const mockRegistries: Expense[] = [
-  {
-    id: 1,
-    description: "Freelance",
-    amount: 2000,
-    date: new Date("2024-05-01"),
-    creation_date: new Date("2024-05-01"),
-    account: 1,
-    expense: false,
-    tipo: "income",
-  },
-  {
-    id: 2,
-    description: "Groceries",
-    amount: 400,
-    date: new Date("2024-05-02"),
-    creation_date: new Date("2024-05-01"),
-    account: 1,
-    expense: true,
-    tipo: "food",
-  },
-  {
-    id: 3,
-    description: "Consulting",
-    amount: 1200,
-    date: new Date("2024-06-11"),
-    creation_date: new Date("2024-05-01"),
-    account: 1,
-    expense: false,
-    tipo: "income",
-  },
-  {
-    id: 4,
-    description: "Utilities",
-    amount: 230,
-    date: new Date("2024-06-12"),
-    creation_date: new Date("2024-05-01"),
-    account: 1,
-    expense: true,
-    tipo: "bills",
-  },
-  {
-    id: 5,
-    description: "Bonus",
-    amount: 800,
-    date: new Date("2024-07-01"),
-    creation_date: new Date("2024-05-01"),
-    account: 1,
-    expense: false,
-    tipo: "bonus",
-  },
-  {
-    id:6,
-    description: "Rent",
-    amount: 1000,
-    date: new Date("2024-07-05"),
-    creation_date: new Date("2024-05-01"),
-    account: 1,
-    expense: true,
-    tipo: "housing",
-  },
-]
-
-// --------------------------
-// 3. ChartConfig Style
-// --------------------------
+type TimeRange = "month" | "quarter" | "year";
 
 const chartConfig = {
   income: {
     label: "Income",
-    color: "var(--primary)",
+    color: "var(--muted)",
   },
   expenses: {
     label: "Expenses",
-    color: "var(--muted)",
+    color: "var(--primary)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
-// --------------------------
-// 4. Data Grouper
-// --------------------------
+function getChartData(expenses: Expense[], range: TimeRange) {
+  const now = new Date();
+  const year = now.getFullYear();
 
-function groupRegistries(
-  registries: Expense[],
-  range: "30d" | "180d" | "365d"
-) {
-  const today = new Date("2024-07-22")
-  const daysBack = range === "30d" ? 30 : range === "180d" ? 180 : 365
-  const startDate = new Date(today)
-  startDate.setDate(today.getDate() - daysBack)
+  // Filter based on time range
+  const filtered = expenses.filter((exp) => {
+    const d = new Date(exp.date);
+    const sameYear = d.getFullYear() === year;
 
-  const filtered = registries.filter((r) => new Date(r.date) >= startDate)
+    if (!sameYear) return false;
 
-  const grouped: Record<string, { income: number; expenses: number }> = {}
+    const month = d.getMonth();
+    const quarter = Math.floor(month / 3);
+    const currentQuarter = Math.floor(now.getMonth() / 3);
 
-  for (const entry of filtered) {
-    const date = new Date(entry.date)
+    if (range === "month") {
+      return month === now.getMonth();
+    }
+
+    if (range === "quarter") {
+      return quarter === currentQuarter;
+    }
+
+    return true; // range === "year"
+  });
+
+  // Sort oldest to newest
+  const sorted = [...filtered].sort(
+    (a, b) => a.date.getTime() - b.date.getTime()
+  );
+
+  // Group by label
+  const grouped: Record<string, { income: number; expenses: number }> = {};
+
+  for (const entry of sorted) {
+    const date = new Date(entry.date);
     const label =
-      daysBack <= 30
-        ? date.toLocaleDateString("en-US", { month: "short", day: "numeric" })
-        : date.toLocaleDateString("en-US", { month: "short", year: "2-digit" })
+      range === "month"
+        ? date.toLocaleDateString("es-ES", {
+            day: "numeric",
+          })
+        : date.toLocaleDateString("es-ES", {
+            month: "short",
+            year: range === "year" ? "2-digit" : undefined,
+          });
 
     if (!grouped[label]) {
-      grouped[label] = { income: 0, expenses: 0 }
+      grouped[label] = { income: 0, expenses: 0 };
     }
 
     if (entry.expense) {
-      grouped[label].expenses += entry.amount
+      grouped[label].expenses += entry.amount;
     } else {
-      grouped[label].income += entry.amount
+      grouped[label].income += entry.amount;
     }
   }
 
   return Object.entries(grouped).map(([label, values]) => ({
     label,
     ...values,
-  }))
+  }));
 }
 
-// --------------------------
-// 5. Component
-// --------------------------
-
 export function ChartBarExpensesIncome() {
-  const [timeRange, setTimeRange] = React.useState<"30d" | "180d" | "365d">("180d")
+  const { expenses, loading } = useExpenses();
+  const [timeRange, setTimeRange] = React.useState<TimeRange>("quarter");
 
-  const chartData = groupRegistries(mockRegistries, timeRange)
+  const chartData = getChartData(expenses, timeRange);
+  const onlyExpenses = timeRange === "month";
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Expenses / Income</CardTitle>
         <CardDescription>
-          {timeRange === "30d"
-            ? "Last 30 days"
-            : timeRange === "180d"
-            ? "Last 6 months"
-            : "Last 12 months"}
+          {timeRange === "month"
+            ? "This Month"
+            : timeRange === "quarter"
+            ? "This Quarter"
+            : "This Year"}
         </CardDescription>
         <CardAction>
           <ToggleGroup
             type="single"
             value={timeRange}
             onValueChange={(val) => {
-              if (val) setTimeRange(val as "30d" | "180d" | "365d")
+              if (val) setTimeRange(val as TimeRange);
             }}
             variant="outline"
             className="hidden sm:flex"
           >
-            <ToggleGroupItem value="30d">1M</ToggleGroupItem>
-            <ToggleGroupItem value="180d">6M</ToggleGroupItem>
-            <ToggleGroupItem value="365d">12M</ToggleGroupItem>
+            <ToggleGroupItem value="month">Month</ToggleGroupItem>
+            <ToggleGroupItem value="quarter">Quarter</ToggleGroupItem>
+            <ToggleGroupItem value="year">Year</ToggleGroupItem>
           </ToggleGroup>
 
-          <Select value={timeRange} onValueChange={(val) => setTimeRange(val as "30d" | "180d" | "365d")}>
+          <Select
+            value={timeRange}
+            onValueChange={(val) => setTimeRange(val as TimeRange)}
+          >
             <SelectTrigger className="sm:hidden w-40">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="30d">Last 30 days</SelectItem>
-              <SelectItem value="180d">Last 6 months</SelectItem>
-              <SelectItem value="365d">Last 12 months</SelectItem>
+              <SelectItem value="month">This Month</SelectItem>
+              <SelectItem value="quarter">This Quarter</SelectItem>
+              <SelectItem value="year">This Year</SelectItem>
             </SelectContent>
           </Select>
         </CardAction>
       </CardHeader>
 
       <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart data={chartData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="label"
-              tickLine={false}
-              tickMargin={8}
-              axisLine={false}
-            />
-            <YAxis />
-            <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  indicator="dashed"
-                  labelFormatter={(val) => val}
-                />
-              }
-            />
-            <Bar
-              dataKey="income"
-              fill="var(--color-income)"
-              radius={4}
-            />
-            <Bar
-              dataKey="expenses"
-              fill="var(--color-expenses)"
-              radius={4}
-            />
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
+        {loading ? (
+          <p className="text-muted-foreground text-sm">Loading...</p>
+        ) : (
+          <ChartContainer config={chartConfig}>
+            <BarChart data={chartData}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="label"
+                tickLine={false}
+                tickMargin={8}
+                axisLine={false}
+              />
+              <YAxis />
+              <ChartTooltip
+                content={
+                  <ChartTooltipContent
+                    indicator="dashed"
+                    labelFormatter={(val) => val}
+                    formatter={(value: unknown, name: unknown) => [
+                      `${value} € `,
+                      name,
+                    ]}
+                  />
+                }
+              />
 
-    
+              {!onlyExpenses && (
+                <Bar dataKey="income" fill="var(--color-income)" radius={4} />
+              )}
+              <Bar dataKey="expenses" fill="var(--color-expenses)" radius={4} />
+            </BarChart>
+          </ChartContainer>
+        )}
+      </CardContent>
     </Card>
-  )
+  );
 }
