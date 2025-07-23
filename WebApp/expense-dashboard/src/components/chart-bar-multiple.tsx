@@ -33,11 +33,11 @@ type TimeRange = "month" | "quarter" | "year";
 const chartConfig = {
   income: {
     label: "Income",
-    color: "var(--muted)",
+    color: "var(--chart-1)",
   },
   expenses: {
     label: "Expenses",
-    color: "var(--primary)",
+    color: "var(--chart-3)",
   },
 } satisfies ChartConfig;
 
@@ -174,7 +174,7 @@ export function ChartBarExpensesIncome() {
                     labelFormatter={(val) => val}
                     formatter={(value: unknown, name: unknown) => [
                       `${value} € `,
-                      name,
+                      name as string,
                     ]}
                   />
                 }
