@@ -3,7 +3,6 @@ import {
   IconDashboard,
   IconInnerShadowTop,
   IconListDetails,
-  IconSettings,
 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
@@ -30,14 +29,6 @@ const navMain = [
     title: "Expenses",
     url: "expenses",
     icon: IconListDetails,
-  },
-];
-
-const navSecondary = [
-  {
-    title: "Settings",
-    url: "#",
-    icon: IconSettings,
   },
 ];
 
@@ -86,8 +77,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       <SidebarContent>
         <NavMain items={navMain} />
-        {/* INFO: maybe for future expansion */}
-        {/* <NavSecondary items={navSecondary} className="mt-auto" /> */}
       </SidebarContent>
 
       {user && (
