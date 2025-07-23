@@ -5,7 +5,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { supabase } from "../lib/supabase";
+import { supabase } from "@/lib/supabase";
 import type { Expense } from "@/interfaces/expense.interface";
 
 interface ExpensesContextType {

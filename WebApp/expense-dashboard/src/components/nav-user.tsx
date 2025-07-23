@@ -1,5 +1,5 @@
 import { IconDotsVertical, IconLogout } from "@tabler/icons-react";
-import { supabase } from "../lib/supabase";
+import { supabase } from "@/lib/supabase";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {

@@ -5,7 +5,7 @@ import {
   IconListDetails,
 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
+import { supabase } from "@/lib/supabase";
 
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
