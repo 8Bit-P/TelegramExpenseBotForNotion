@@ -4,7 +4,6 @@ import { SectionCards } from "@/components/section-cards";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { ChartBarExpensesIncome } from "./components/chart-bar-multiple";
-import data from "./app/dashboard/data.json";
 import LoginPage from "./components/login-page";
 import { useAuth } from "./hooks/use-auth";
 import { ExpensesProvider } from "./context/ExpensesContext";
@@ -41,7 +40,7 @@ function App() {
                 <div className="px-4 lg:px-6">
                   <ChartBarExpensesIncome />
                 </div>
-                <DataTable data={data} />
+                <DataTable/>
               </div>
             </div>
           </div>
