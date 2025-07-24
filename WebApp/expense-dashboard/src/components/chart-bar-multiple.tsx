@@ -105,7 +105,7 @@ function getChartData(expenses: Expense[], range: TimeRange) {
 }
 
 export function ChartBarExpensesIncome() {
-  const { expenses, loading } = useExpenses();
+  const { expenses, loadingExpenses } = useExpenses();
   const [timeRange, setTimeRange] = React.useState<TimeRange>("quarter");
 
   const chartData = getChartData(expenses, timeRange);
@@ -154,7 +154,7 @@ export function ChartBarExpensesIncome() {
       </CardHeader>
 
       <CardContent>
-        {loading ? (
+        {loadingExpenses ? (
           <p className="text-muted-foreground text-sm">Loading...</p>
         ) : (
           <ChartContainer config={chartConfig}>

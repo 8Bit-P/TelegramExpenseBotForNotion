@@ -6,18 +6,23 @@ import {
   type ReactNode,
 } from "react";
 import { supabase } from "@/lib/supabase";
-import type { Expense } from "@/interfaces/expense.interface";
+import type { Category, Expense } from "@/interfaces/expense.interface";
 
 interface ExpensesContextType {
   expenses: Expense[];
-  loading: boolean;
+  loadingExpenses: boolean;
+  categories: Category[];
+  loadingCategories: boolean;
 }
 
 const ExpensesContext = createContext<ExpensesContextType | null>(null);
 
 export function ExpensesProvider({ children }: { children: ReactNode }) {
   const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingExpenses, setLoadingExpenses] = useState(true);
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loadingCategories, setLoadingCategories] = useState(true);
 
   useEffect(() => {
     const fetchExpenses = async () => {
@@ -40,14 +45,28 @@ export function ExpensesProvider({ children }: { children: ReactNode }) {
         setExpenses(formatted);
       }
 
-      setLoading(false);
+      setLoadingExpenses(false);
+    };
+
+    const fetchCategories = async () => {
+      const { data, error } = await supabase.from("categories").select("*");
+
+      if (error) console.error(error);
+      else {
+        setCategories(data);
+      }
+
+      setLoadingCategories(false);
     };
 
     fetchExpenses();
+    fetchCategories();
   }, []);
 
   return (
-    <ExpensesContext.Provider value={{ expenses, loading }}>
+    <ExpensesContext.Provider
+      value={{ expenses, loadingExpenses, categories, loadingCategories }}
+    >
       {children}
     </ExpensesContext.Provider>
   );

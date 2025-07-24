@@ -9,6 +9,12 @@ export interface Expense {
   tipo: string;
 }
 
+export interface Category {
+  id: number;
+  tipo: string;
+  description: string;
+}
+
 export interface TotalExpense {
   amount: number;
   trendingPercentage: number;
