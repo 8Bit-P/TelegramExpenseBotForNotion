@@ -1,7 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import {
   Card,
@@ -33,11 +40,11 @@ type TimeRange = "month" | "quarter" | "year";
 const chartConfig = {
   income: {
     label: "Income",
-    color: "var(--chart-1)",
+    color: "var(--chart-1)" 
   },
   expenses: {
     label: "Expenses",
-    color: "var(--chart-3)",
+    color: "var(--chart-2)",
   },
 } satisfies ChartConfig;
 
@@ -106,7 +113,7 @@ function getChartData(expenses: Expense[], range: TimeRange) {
 
 export function ChartBarExpensesIncome() {
   const { expenses, loadingExpenses } = useExpenses();
-  const [timeRange, setTimeRange] = React.useState<TimeRange>("quarter");
+  const [timeRange, setTimeRange] = React.useState<TimeRange>("year");
 
   const chartData = getChartData(expenses, timeRange);
   const onlyExpenses = timeRange === "month";
@@ -157,35 +164,46 @@ export function ChartBarExpensesIncome() {
         {loadingExpenses ? (
           <p className="text-muted-foreground text-sm">Loading...</p>
         ) : (
-          <ChartContainer config={chartConfig}>
-            <BarChart data={chartData}>
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="label"
-                tickLine={false}
-                tickMargin={8}
-                axisLine={false}
-              />
-              <YAxis />
-              <ChartTooltip
-                content={
-                  <ChartTooltipContent
-                    indicator="dashed"
-                    labelFormatter={(val) => val}
-                    formatter={(value: unknown, name: unknown) => [
-                      `${value} € `,
-                      name as string,
-                    ]}
+          <div className="w-full max-w-screen-lg mx-auto">
+            <ChartContainer config={chartConfig}>
+                <BarChart data={chartData}>
+                  <CartesianGrid vertical={false} />
+                  <XAxis
+                    dataKey="label"
+                    tickLine={false}
+                    tickMargin={8}
+                    axisLine={false}
                   />
-                }
-              />
-
-              {!onlyExpenses && (
-                <Bar dataKey="income" fill="var(--color-income)" radius={4} />
-              )}
-              <Bar dataKey="expenses" fill="var(--color-expenses)" radius={4} />
-            </BarChart>
-          </ChartContainer>
+                  <YAxis />
+                  <ChartTooltip
+                    content={
+                      <ChartTooltipContent
+                        indicator="dashed"
+                        labelFormatter={(val) => val}
+                        formatter={(value: unknown, name: unknown) => [
+                          `${value} € `,
+                          name as string,
+                        ]}
+                      />
+                    }
+                  />
+                  {!onlyExpenses && (
+                    <Bar
+                      dataKey="income"
+                      fill="var(--color-income)"
+                      radius={4}
+                      maxBarSize={40}
+                    />
+                  )}
+                  <Bar
+                    dataKey="expenses"
+                    fill="var(--color-expenses)"
+                    radius={4}
+                    maxBarSize={40}
+                  />
+                </BarChart>
+            </ChartContainer>
+          </div>
         )}
       </CardContent>
     </Card>

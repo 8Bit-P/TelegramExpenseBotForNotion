@@ -146,8 +146,8 @@ button:focus-visible {
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-  --chart-1: oklch(57.77% 0.09353 216.283);
-  --chart-2: rgb(94, 165, 0);
+  --chart-1: #07adad;
+  --chart-2: #e2193a;
   --chart-3: oklch(77.541% 0.17261 65.359);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: rgb(251, 44, 54);
