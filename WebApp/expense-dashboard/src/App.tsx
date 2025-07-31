@@ -7,13 +7,13 @@ import { ChartBarExpensesIncome } from "./components/chart-bar-multiple";
 import LoginPage from "./components/login-page";
 import { useAuth } from "./hooks/use-auth";
 import { ExpensesProvider } from "./context/ExpensesContext";
+import { FullPageLoader } from "./components/FullPageLoader";
 
 function App() {
   const { session, loading } = useAuth();
 
   if (loading) {
-    /* TODO: do a proper loading  */
-    return <div className="p-6 text-center">Loading...</div>;
+    return <FullPageLoader/>
   }
 
   if (!session) {

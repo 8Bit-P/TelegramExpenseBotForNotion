@@ -122,7 +122,7 @@ const columns: ColumnDef<Expense>[] = [
     header: () => <div className="text-right">Amount</div>,
     cell: ({ row }) => (
       <div className="text-right font-medium">
-        ${row.original.amount.toFixed(2)}
+        {row.original.amount.toFixed(2)}€
       </div>
     ),
   },
@@ -371,8 +371,7 @@ export function DataTable() {
 
       <div className="flex items-center justify-between">
         <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getRowModel().rows.reduce((sum, e) => sum + e.original.amount, 0)} € total in current view.
         </div>
         <div className="flex w-full items-center gap-8 lg:w-fit">
           <div className="hidden items-center gap-2 lg:flex">
