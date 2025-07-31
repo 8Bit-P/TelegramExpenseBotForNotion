@@ -169,25 +169,48 @@ const columns: ColumnDef<Expense>[] = [
   },
   {
     id: "actions",
-    cell: () => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
-            size="icon"
-          >
-            <IconDotsVertical />
-            <span className="sr-only">Open menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
+    cell: ({ row }) => {
+      const { deleteExpense } = useExpenses(); 
+      const id = row.original.id;
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              className="data-[state=open]:bg-muted text-muted-foreground flex size-8"
+              size="icon"
+            >
+              <IconDotsVertical />
+              <span className="sr-only">Open menu</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-32">
+            <DropdownMenuItem
+              onClick={() => {
+                //TODO: 
+                /* trigger edit UI */
+              }}
+            >
+              Edit
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={async () => {
+                try {
+                  await deleteExpense(id);
+                } catch (err) {
+                  console.error("Failed to delete:", err);
+                }
+              }}
+              className="text-red-600"
+            >
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
   },
 ];
 
@@ -371,7 +394,10 @@ export function DataTable() {
 
       <div className="flex items-center justify-between">
         <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
-          {table.getRowModel().rows.reduce((sum, e) => sum + e.original.amount, 0)} € total in current view.
+          {table
+            .getRowModel()
+            .rows.reduce((sum, e) => sum + e.original.amount, 0)}{" "}
+          € total in current view.
         </div>
         <div className="flex w-full items-center gap-8 lg:w-fit">
           <div className="hidden items-center gap-2 lg:flex">
@@ -451,6 +477,8 @@ export function DataTable() {
 
 function TableCellViewer({ item }: { item: Expense }) {
   const isMobile = useIsMobile();
+  const { categories } = useExpenses();
+  const [selectedCategory, setSelectedCategory] = React.useState(item.tipo);
 
   return (
     <Drawer direction={isMobile ? "bottom" : "right"}>
@@ -466,11 +494,13 @@ function TableCellViewer({ item }: { item: Expense }) {
         </DrawerHeader>
         <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm">
           <form className="flex flex-col gap-4">
+            {/* Description */}
             <div className="flex flex-col gap-3">
               <Label htmlFor="description">Description</Label>
               <Input id="description" defaultValue={item.description} />
             </div>
 
+            {/* Amount & Date */}
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
                 <Label htmlFor="amount">Amount</Label>
@@ -486,15 +516,14 @@ function TableCellViewer({ item }: { item: Expense }) {
               </div>
             </div>
 
+            {/* Created At & Account */}
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
                 <Label htmlFor="creation_date">Created At</Label>
                 <Input
                   id="creation_date"
                   type="date"
-                  defaultValue={
-                    new Date(item.creation_date).toISOString().split("T")[0]
-                  }
+                  defaultValue={new Date(item.creation_date).toISOString().split("T")[0]}
                 />
               </div>
               <div className="flex flex-col gap-3">
@@ -503,11 +532,24 @@ function TableCellViewer({ item }: { item: Expense }) {
               </div>
             </div>
 
+            {/* Category Dropdown */}
             <div className="flex flex-col gap-3">
               <Label htmlFor="tipo">Category</Label>
-              <Input id="tipo" defaultValue={item.tipo} />
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger id="tipo" className="w-full">
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((cat) => (
+                    <SelectItem key={cat.id} value={cat.tipo}>
+                      {cat.tipo}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
+            {/* Expense Checkbox */}
             <div className="flex items-center gap-2">
               <Checkbox id="expense" checked={item.expense} />
               <Label htmlFor="expense">Is this an expense?</Label>
