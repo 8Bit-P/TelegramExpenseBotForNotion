@@ -410,7 +410,8 @@ export function DataTable() {
                 table.setPageSize(Number(value));
               }}
             >
-              <SelectTrigger size="sm" className="w-2" id="rows-per-page">
+              <SelectTrigger size="sm" className="min-w-[4rem]" id="rows-per-page">
+
                 <SelectValue
                   placeholder={table.getState().pagination.pageSize}
                 />
