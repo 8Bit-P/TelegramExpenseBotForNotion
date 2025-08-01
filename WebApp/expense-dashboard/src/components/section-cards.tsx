@@ -63,7 +63,7 @@ export function SectionCards() {
         <CardHeader>
           <CardDescription>Total Expenses</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            ${totalExpenses.amount.toFixed(2)}
+            {totalExpenses.amount.toFixed(2)} €
           </CardTitle>
           <CardAction>
             <ExpenseTrendingBadge
@@ -94,7 +94,7 @@ export function SectionCards() {
         <CardHeader>
           <CardDescription>Weekly average</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            ${weeklyAverage.amount.toFixed(2)}
+            {weeklyAverage.amount.toFixed(2)} €
           </CardTitle>
           <CardAction>
             <ExpenseTrendingBadge
@@ -139,7 +139,7 @@ export function SectionCards() {
             {highestExpense.trendingPercentage}% of total expense{" "}
           </div>
           <div className="text-muted-foreground">
-            ${highestExpense.amount.toFixed(2)}
+            {highestExpense.amount.toFixed(2)} €
           </div>
         </CardFooter>
       </Card>
@@ -149,7 +149,7 @@ export function SectionCards() {
         <CardHeader>
           <CardDescription>Income this month</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            ${monthIncome.amount.toFixed(2)}
+            {monthIncome.amount.toFixed(2)} €
           </CardTitle>
           <CardAction>
             <IncomeTrendingBadge

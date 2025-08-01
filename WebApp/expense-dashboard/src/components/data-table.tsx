@@ -122,7 +122,7 @@ const columns: ColumnDef<Expense>[] = [
     header: () => <div className="text-right">Amount</div>,
     cell: ({ row }) => (
       <div className="text-right font-medium">
-        {row.original.amount.toFixed(2)}€
+        {row.original.amount.toFixed(2)} €
       </div>
     ),
   },
@@ -170,7 +170,7 @@ const columns: ColumnDef<Expense>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const { deleteExpense } = useExpenses(); 
+      const { deleteExpense } = useExpenses();
       const id = row.original.id;
 
       return (
@@ -188,7 +188,7 @@ const columns: ColumnDef<Expense>[] = [
           <DropdownMenuContent align="end" className="w-32">
             <DropdownMenuItem
               onClick={() => {
-                //TODO: 
+                //TODO:
                 /* trigger edit UI */
               }}
             >
@@ -410,8 +410,11 @@ export function DataTable() {
                 table.setPageSize(Number(value));
               }}
             >
-              <SelectTrigger size="sm" className="min-w-[4rem]" id="rows-per-page">
-
+              <SelectTrigger
+                size="sm"
+                className="min-w-[4rem]"
+                id="rows-per-page"
+              >
                 <SelectValue
                   placeholder={table.getState().pagination.pageSize}
                 />
@@ -476,10 +479,32 @@ export function DataTable() {
   );
 }
 
-function TableCellViewer({ item }: { item: Expense }) {
+export default function TableCellViewer({ item }: { item: Expense }) {
   const isMobile = useIsMobile();
-  const { categories } = useExpenses();
-  const [selectedCategory, setSelectedCategory] = React.useState(item.tipo);
+  const { categories, updateExpense } = useExpenses();
+
+  const [formData, setFormData] = React.useState({ ...item });
+  const [loading, setLoading] = React.useState(false);
+
+  const handleChange = (key: keyof Expense, value: any) => {
+    setFormData((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSave = async () => {
+    setLoading(true);
+    try {
+      const updatedData: Expense = {
+        ...formData,
+        date: new Date(formData.date),
+        creation_date: new Date(formData.creation_date),
+      };
+      await updateExpense(item.id, updatedData);
+    } catch (e) {
+      console.error("Failed to update expense:", e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Drawer direction={isMobile ? "bottom" : "right"}>
@@ -491,28 +516,42 @@ function TableCellViewer({ item }: { item: Expense }) {
       <DrawerContent>
         <DrawerHeader className="gap-1">
           <DrawerTitle>{item.description}</DrawerTitle>
-          <DrawerDescription>Expense Details</DrawerDescription>
+          <DrawerDescription>Edit Expense</DrawerDescription>
         </DrawerHeader>
         <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm">
           <form className="flex flex-col gap-4">
             {/* Description */}
             <div className="flex flex-col gap-3">
               <Label htmlFor="description">Description</Label>
-              <Input id="description" defaultValue={item.description} />
+              <Input
+                id="description"
+                value={formData.description}
+                onChange={(e) => handleChange("description", e.target.value)}
+              />
             </div>
 
             {/* Amount & Date */}
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
                 <Label htmlFor="amount">Amount</Label>
-                <Input id="amount" type="number" defaultValue={item.amount} />
+                <Input
+                  id="amount"
+                  type="number"
+                  value={formData.amount}
+                  onChange={(e) =>
+                    handleChange("amount", parseFloat(e.target.value))
+                  }
+                />
               </div>
               <div className="flex flex-col gap-3">
                 <Label htmlFor="date">Date</Label>
                 <Input
                   id="date"
                   type="date"
-                  defaultValue={new Date(item.date).toISOString().split("T")[0]}
+                  value={new Date(formData.date).toISOString().split("T")[0]}
+                  onChange={(e) =>
+                    handleChange("date", new Date(e.target.value))
+                  }
                 />
               </div>
             </div>
@@ -524,19 +563,34 @@ function TableCellViewer({ item }: { item: Expense }) {
                 <Input
                   id="creation_date"
                   type="date"
-                  defaultValue={new Date(item.creation_date).toISOString().split("T")[0]}
+                  value={
+                    new Date(formData.creation_date).toISOString().split("T")[0]
+                  }
+                  onChange={(e) =>
+                    handleChange("creation_date", new Date(e.target.value))
+                  }
                 />
               </div>
               <div className="flex flex-col gap-3">
                 <Label htmlFor="account">Account</Label>
-                <Input id="account" type="number" defaultValue={item.account} />
+                <Input
+                  id="account"
+                  type="number"
+                  value={formData.account}
+                  onChange={(e) =>
+                    handleChange("account", parseInt(e.target.value))
+                  }
+                />
               </div>
             </div>
 
             {/* Category Dropdown */}
             <div className="flex flex-col gap-3">
               <Label htmlFor="tipo">Category</Label>
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <Select
+                value={formData.tipo}
+                onValueChange={(val) => handleChange("tipo", val)}
+              >
                 <SelectTrigger id="tipo" className="w-full">
                   <SelectValue placeholder="Select category" />
                 </SelectTrigger>
@@ -551,14 +605,34 @@ function TableCellViewer({ item }: { item: Expense }) {
             </div>
 
             {/* Expense Checkbox */}
-            <div className="flex items-center gap-2">
-              <Checkbox id="expense" checked={item.expense} />
-              <Label htmlFor="expense">Is this an expense?</Label>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <Checkbox
+                id="expense"
+                checked={formData.expense}
+                onCheckedChange={(checked) =>
+                  handleChange("expense", !!checked)
+                }
+              />
+              <label htmlFor="expense" style={{ fontSize: "14px" }}>
+                Is this an expense?
+              </label>
             </div>
           </form>
         </div>
         <DrawerFooter>
-          <Button>Save</Button>
+          <Button
+            onClick={handleSave}
+            className="w-full !text-gray-900 hover:!bg-gray-200 focus:outline-none focus:ring-0 focus:border-transparent"
+            variant="outline"
+            style={{
+              backgroundColor: "#d9d9d9ff",
+              border: "none",
+            }}
+            disabled={loading}
+          >
+            {loading ? "Saving..." : "Save"}
+          </Button>
+
           <DrawerClose asChild>
             <Button variant="outline">Close</Button>
           </DrawerClose>

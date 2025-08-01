@@ -69,7 +69,7 @@ export function LoginForm({
                   className="w-full !text-gray-900 hover:!bg-gray-200 focus:outline-none focus:ring-0 focus:border-transparent"
                   disabled={loading}
                   style={{
-                    backgroundColor: "#f3f4f6", // Tailwind's gray-100
+                    backgroundColor: "#f3f4f6", 
                     border: "none",
                   }}
                 >
