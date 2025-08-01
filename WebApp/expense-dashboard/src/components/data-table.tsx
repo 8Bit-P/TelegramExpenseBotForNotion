@@ -187,15 +187,6 @@ const columns: ColumnDef<Expense>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-32">
             <DropdownMenuItem
-              onClick={() => {
-                //TODO:
-                /* trigger edit UI */
-              }}
-            >
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
               onClick={async () => {
                 try {
                   await deleteExpense(id);
@@ -336,9 +327,10 @@ export function DataTable() {
             </SelectContent>
           </Select>
         </div>
+        {/* TODO: add expense logic */}
         <Button variant="outline" size="sm">
           <IconPlus />
-          <span className="hidden lg:inline">Add Section</span>
+          <span className="hidden lg:inline">Add Expense</span>
         </Button>
       </div>
 
@@ -485,6 +477,7 @@ export default function TableCellViewer({ item }: { item: Expense }) {
 
   const [formData, setFormData] = React.useState({ ...item });
   const [loading, setLoading] = React.useState(false);
+  const [open, setOpen] = React.useState(false); // Controlled drawer
 
   const handleChange = (key: keyof Expense, value: any) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
@@ -499,6 +492,7 @@ export default function TableCellViewer({ item }: { item: Expense }) {
         creation_date: new Date(formData.creation_date),
       };
       await updateExpense(item.id, updatedData);
+      setOpen(false); // Close drawer after successful save
     } catch (e) {
       console.error("Failed to update expense:", e);
     } finally {
@@ -507,9 +501,17 @@ export default function TableCellViewer({ item }: { item: Expense }) {
   };
 
   return (
-    <Drawer direction={isMobile ? "bottom" : "right"}>
+    <Drawer
+      direction={isMobile ? "bottom" : "right"}
+      open={open}
+      onOpenChange={setOpen}
+    >
       <DrawerTrigger asChild>
-        <Button variant="link" className="text-foreground w-fit px-0 text-left">
+        <Button
+          variant="link"
+          className="text-foreground w-fit px-0 text-left"
+          onClick={() => setOpen(true)}
+        >
           {item.description}
         </Button>
       </DrawerTrigger>
