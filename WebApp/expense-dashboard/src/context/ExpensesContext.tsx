@@ -13,6 +13,10 @@ interface ExpensesContextType {
   loadingExpenses: boolean;
   categories: Category[];
   loadingCategories: boolean;
+
+  addExpense: (expense: Omit<Expense, "id">) => Promise<void>;
+  updateExpense: (id: number, updated: Partial<Expense>) => Promise<void>;
+  deleteExpense: (id: number) => Promise<void>;
 }
 
 const ExpensesContext = createContext<ExpensesContextType | null>(null);
@@ -63,9 +67,57 @@ export function ExpensesProvider({ children }: { children: ReactNode }) {
     fetchCategories();
   }, []);
 
+  const addExpense = async (expense: Omit<Expense, "id">) => {
+    const { data, error } = await supabase
+      .from("expenses")
+      .insert([expense])
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    setExpenses((prev) => [
+      {
+        ...data,
+        date: new Date(data.date),
+        creation_date: new Date(data.creation_date),
+      },
+      ...prev,
+    ]);
+  };
+
+  const updateExpense = async (id: number, updated: Partial<Expense>) => {
+    const { error } = await supabase
+      .from("expenses")
+      .update(updated)
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    setExpenses((prev) =>
+      prev.map((exp) => (exp.id === id ? { ...exp, ...updated } : exp))
+    );
+  };
+
+  const deleteExpense = async (id: number) => {
+    const { error } = await supabase.from("expenses").delete().eq("id", id);
+    if (error) throw error;
+    setExpenses((prev) => prev.filter((exp) => exp.id !== id));
+  };
+
   return (
     <ExpensesContext.Provider
-      value={{ expenses, loadingExpenses, categories, loadingCategories }}
+      value={{
+        expenses,
+        loadingExpenses,
+        categories,
+        loadingCategories,
+        addExpense,
+        updateExpense,
+        deleteExpense,
+      }}
     >
       {children}
     </ExpensesContext.Provider>

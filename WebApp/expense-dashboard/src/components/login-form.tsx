@@ -66,9 +66,12 @@ export function LoginForm({
               <div className="flex flex-col gap-3">
                 <Button
                   type="submit"
-                  className="w-full bg-background text-foreground hover:bg-muted border border-border"
-                  variant="default"
+                  className="w-full !text-gray-900 hover:!bg-gray-200 focus:outline-none focus:ring-0 focus:border-transparent"
                   disabled={loading}
+                  style={{
+                    backgroundColor: "#f3f4f6", 
+                    border: "none",
+                  }}
                 >
                   {loading ? "Logging in..." : "Login"}
                 </Button>
