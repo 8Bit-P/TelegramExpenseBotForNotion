@@ -22,13 +22,13 @@ export function NavMain({
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
           <SidebarMenuItem className="flex items-center gap-2">
-            <SidebarMenuButton
+            {/* <SidebarMenuButton
               tooltip="Quick Create"
               className="bg-white text-primary hover:bg-gray-100 hover:text-primary active:bg-gray-200 active:text-primary min-w-8 duration-200 ease-linear"
             >
               <IconCirclePlusFilled />
               <span>Quick Create</span>
-            </SidebarMenuButton>
+            </SidebarMenuButton> */}
           </SidebarMenuItem>
         </SidebarMenu>
         <SidebarMenu>
