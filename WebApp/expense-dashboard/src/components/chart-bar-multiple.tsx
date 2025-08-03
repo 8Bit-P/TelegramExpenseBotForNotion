@@ -180,7 +180,7 @@ export function ChartBarExpensesIncome() {
                         indicator="dashed"
                         labelFormatter={(val) => val}
                         formatter={(value: unknown, name: unknown) => [
-                          `${value} € `,
+                          `${Number(value).toFixed(2)} € `,
                           name as string,
                         ]}
                       />
