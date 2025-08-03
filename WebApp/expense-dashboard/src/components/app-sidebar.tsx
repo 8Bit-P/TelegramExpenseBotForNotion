@@ -25,11 +25,12 @@ const navMain = [
     url: "#",
     icon: IconDashboard,
   },
-  {
-    title: "Expenses",
-    url: "expenses",
-    icon: IconListDetails,
-  },
+  /* INFO: for a future if more screens */
+  // {
+  //   title: "Expenses",
+  //   url: "expenses",
+  //   icon: IconListDetails,
+  // },
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

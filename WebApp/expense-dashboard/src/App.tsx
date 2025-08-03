@@ -8,6 +8,7 @@ import LoginPage from "./components/login-page";
 import { useAuth } from "./hooks/use-auth";
 import { ExpensesProvider } from "./context/ExpensesContext";
 import { FullPageLoader } from "./components/FullPageLoader";
+import { DonutChartByCategory } from "./components/DonutChartByCategory";
 
 function App() {
   const { session, loading } = useAuth();
@@ -39,6 +40,9 @@ function App() {
                 <SectionCards />
                 <div className="px-4 lg:px-6">
                   <ChartBarExpensesIncome />
+                </div>
+                <div className="px-4 lg:px-6">
+                  <DonutChartByCategory />
                 </div>
                 <DataTable/>
               </div>
