@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   IconDashboard,
   IconInnerShadowTop,
-  IconListDetails,
 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
