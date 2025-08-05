@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { useExpenses } from "@/context/ExpensesContext";
 import type { Expense } from "@/interfaces/expense.interface";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const COLORS = [
   "#2563eb",
@@ -79,6 +80,8 @@ export function DonutChartByCategory() {
 
   const categoryData = getCategoryData(expenses, timeRange);
 
+  const isMobile = useIsMobile();
+
   return (
     <Card>
       <CardHeader>
@@ -134,7 +137,7 @@ export function DonutChartByCategory() {
                     dataKey="value"
                     nameKey="name"
                     innerRadius={0}
-                    outerRadius={180}
+                    outerRadius={isMobile ? 100 : 120}
                     paddingAngle={0}
                   >
                     {categoryData.map((entry, index) => (
