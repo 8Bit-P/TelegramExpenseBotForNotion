@@ -333,7 +333,6 @@ export function DataTable() {
               </SelectContent>
             </Select>
           </div>
-          {/* TODO: add expense logic */}
           <Button
             variant="outline"
             size="sm"
