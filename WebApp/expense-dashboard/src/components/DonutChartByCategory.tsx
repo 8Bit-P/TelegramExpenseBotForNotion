@@ -137,7 +137,7 @@ export function DonutChartByCategory() {
                     dataKey="value"
                     nameKey="name"
                     innerRadius={0}
-                    outerRadius={isMobile ? 100 : 120}
+                    outerRadius={isMobile ? 100 : 180}
                     paddingAngle={0}
                   >
                     {categoryData.map((entry, index) => (
