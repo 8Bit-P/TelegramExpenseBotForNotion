@@ -1,10 +1,12 @@
-# 📊 **Telegram Expense Bot for Notion**
+# 📊 **Telegram Expense Bot for Expense Tracker**
 
-A **Telegram bot** that integrates with **Notion** to keep track of your daily expenses, easily registering them in your personal Notion database.
+A **Telegram bot** that integrated with **Notion** (in previous versions) to keep track of your daily expenses, easily registering them in your personal Notion database.
+In it's current version it supports a complete web application with React and Shadcn that provides an interface to create, modify and delete your expenses, alongside 
+multiple graphs that help visualize where your money goes.
 
 ## ✨ **Features**
 - **Track expenses** and **income** in real-time.
-- Seamlessly **log records** directly into your Notion page.
+- Seamlessly **log records** directly into your Notion page. (legacy)
 - Simplify personal finance management with minimal effort.
 
 ## 🔧 **Commands**
@@ -33,10 +35,8 @@ CHAT_ID=                  # Telegram chat ID to prevent unauthorized users from 
 BOT_NAME=                 # Name of the bot
 BOT_USERNAME=             # Username of the bot
 
-NOTION_TOKEN=             # Your Notion API token
-MAIN_DATABASE_ID=         # The Notion database ID where primary expenses/income are logged
-ACCOUNTS_DATABASE_ID=     # The Notion database ID for accounts where expense relations are stored
-MONTH_DATABASE_ID=        # The ID of the Notion database where you store month-related data
+SUPABASE_URL=             # URL of supabase DB    
+SUPABASE_KEY=             # Supabase Anon Key 
 ```
 
 ### 📌 **Description of Each Field**
@@ -48,3 +48,5 @@ MONTH_DATABASE_ID=        # The ID of the Notion database where you store month-
 - **`MAIN_DATABASE_ID`**: The ID of your main Notion database, where you’ll log expenses and income.
 - **`ACCOUNTS_DATABASE_ID`**: The ID of the Notion database where you store account-related data (such as relation expenses).
 - **`MONTH_DATABASE_ID`**: The ID of the Notion database where you store month-related data .
+- **`SUPABASE_URL`**: Your supabase URL to keep .
+- **`SUPABASE_KEY`**: Your supabase Anon key .
