@@ -7,30 +7,36 @@ import {
   DrawerDescription,
   DrawerFooter,
   DrawerClose,
-} from "@/components/ui/drawer"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
-import { type Expense, type Category } from "@/interfaces/expense.interface"
-import * as React from "react"
-import { useIsMobile } from "@/hooks/use-mobile"
-import { useExpenses } from "@/context/ExpensesContext"
+} from "@/components/ui/drawer";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { type Expense, type Category } from "@/interfaces/expense.interface";
+import * as React from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useExpenses } from "@/context/ExpensesContext";
 
 export function ExpenseDrawer({
   open,
   onOpenChange,
   initialData,
 }: {
-  open: boolean
-  onOpenChange: (val: boolean) => void
-  initialData?: Partial<Expense>
+  open: boolean;
+  onOpenChange: (val: boolean) => void;
+  initialData?: Partial<Expense>;
 }) {
-  const isMobile = useIsMobile()
-  const { addExpense, updateExpense, categories } = useExpenses()
+  const isMobile = useIsMobile();
+  const { addExpense, updateExpense, categories } = useExpenses();
 
-  const isEditing = !!initialData?.id
+  const isEditing = !!initialData?.id;
   const [formData, setFormData] = React.useState<Partial<Expense>>({
     description: "",
     amount: 0,
@@ -40,35 +46,41 @@ export function ExpenseDrawer({
     tipo: "",
     expense: true,
     ...initialData,
-  })
+  });
 
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(false);
 
   const handleChange = (key: keyof Expense, value: any) => {
-    setFormData((prev) => ({ ...prev, [key]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [key]: value }));
+  };
 
   const handleSubmit = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       if (isEditing && initialData?.id) {
-        await updateExpense(initialData.id, formData as Expense)
+        await updateExpense(initialData.id, formData as Expense);
       } else {
-        await addExpense(formData as Expense)
+        await addExpense(formData as Expense);
       }
-      onOpenChange(false)
+      onOpenChange(false);
     } catch (e) {
-      console.error("Save failed:", e)
+      console.error("Save failed:", e);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange} direction={isMobile ? "bottom" : "right"}>
+    <Drawer
+      open={open}
+      onOpenChange={onOpenChange}
+      direction={isMobile ? "bottom" : "right"}
+    >
       <DrawerContent>
         <DrawerHeader className="gap-1">
-          <DrawerTitle>{isEditing ? "Edit Expense" : "Add Expense"}</DrawerTitle>
+          <DrawerTitle>
+            {isEditing ? "Edit Expense" : "Add Expense"}
+          </DrawerTitle>
           <DrawerDescription>
             {isEditing ? "Modify this expense entry." : "Create a new expense."}
           </DrawerDescription>
@@ -94,7 +106,10 @@ export function ExpenseDrawer({
                   id="amount"
                   type="number"
                   value={formData.amount}
-                  onChange={(e) => handleChange("amount", parseFloat(e.target.value))}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    handleChange("amount", val === "" ? "" : parseFloat(val));
+                  }}
                 />
               </div>
               <div className="flex flex-col gap-3">
@@ -102,8 +117,17 @@ export function ExpenseDrawer({
                 <Input
                   id="date"
                   type="date"
-                  value={new Date(formData.date!).toISOString().split("T")[0]}
-                  onChange={(e) => handleChange("date", new Date(e.target.value))}
+                  value={
+                    formData.date
+                      ? new Date(formData.date).toISOString().split("T")[0]
+                      : ""
+                  }
+                  onChange={(e) =>
+                    handleChange(
+                      "date",
+                      e.target.value ? new Date(e.target.value) : null
+                    )
+                  }
                 />
               </div>
             </div>
@@ -116,7 +140,13 @@ export function ExpenseDrawer({
                   id="account"
                   type="number"
                   value={formData.account}
-                  onChange={(e) => handleChange("account", parseInt(e.target.value))}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    handleChange(
+                      "account",
+                      val === "" ? "" : parseInt(val, 10)
+                    );
+                  }}
                 />
               </div>
               <div className="flex flex-col gap-3">
@@ -124,8 +154,19 @@ export function ExpenseDrawer({
                 <Input
                   id="creation_date"
                   type="date"
-                  value={new Date(formData.creation_date!).toISOString().split("T")[0]}
-                  onChange={(e) => handleChange("creation_date", new Date(e.target.value))}
+                  value={
+                    formData.creation_date
+                      ? new Date(formData.creation_date)
+                          .toISOString()
+                          .split("T")[0]
+                      : ""
+                  }
+                  onChange={(e) =>
+                    handleChange(
+                      "creation_date",
+                      e.target.value ? new Date(e.target.value) : null
+                    )
+                  }
                 />
               </div>
             </div>
@@ -133,7 +174,10 @@ export function ExpenseDrawer({
             {/* Category */}
             <div className="flex flex-col gap-3">
               <Label htmlFor="tipo">Category</Label>
-              <Select value={formData.tipo} onValueChange={(val) => handleChange("tipo", val)}>
+              <Select
+                value={formData.tipo}
+                onValueChange={(val) => handleChange("tipo", val)}
+              >
                 <SelectTrigger id="tipo">
                   <SelectValue placeholder="Select category" />
                 </SelectTrigger>
@@ -152,7 +196,9 @@ export function ExpenseDrawer({
               <Checkbox
                 id="expense"
                 checked={formData.expense as boolean}
-                onCheckedChange={(checked) => handleChange("expense", !!checked)}
+                onCheckedChange={(checked) =>
+                  handleChange("expense", !!checked)
+                }
               />
               <label htmlFor="expense" className="text-sm">
                 Is this an expense?
@@ -177,5 +223,5 @@ export function ExpenseDrawer({
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
-  )
+  );
 }
