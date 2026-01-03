@@ -14,17 +14,14 @@ import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import {
   arrayMove,
   SortableContext,
-  useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 import {
   IconChevronLeft,
   IconChevronRight,
   IconChevronsLeft,
   IconChevronsRight,
   IconDotsVertical,
-  IconGripVertical,
   IconPlus,
 } from "@tabler/icons-react";
 import {
@@ -37,29 +34,12 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  type Row,
   type SortingState,
   useReactTable,
   type VisibilityState,
 } from "@tanstack/react-table";
-
-import { useIsMobile } from "@/hooks/use-mobile";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -85,26 +65,9 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { ExpenseDrawer } from "./ExpenseDrawer";
-
-// Create a separate component for the drag handle
-function DragHandle({ id }: { id: number }) {
-  const { attributes, listeners } = useSortable({
-    id,
-  });
-
-  return (
-    <Button
-      {...attributes}
-      {...listeners}
-      variant="ghost"
-      size="icon"
-      className="text-muted-foreground size-7 hover:bg-transparent"
-    >
-      <IconGripVertical className="text-muted-foreground size-3" />
-      <span className="sr-only">Drag to reorder</span>
-    </Button>
-  );
-}
+import TableCellViewer from "./table-cell-viewer";
+import { DraggableRow, DragHandle } from "./data-table-row";
+import { DataTableToolbar } from "./data-table-toolbar";
 
 const columns: ColumnDef<Expense>[] = [
   {
@@ -129,6 +92,28 @@ const columns: ColumnDef<Expense>[] = [
   {
     accessorKey: "date",
     header: "Date",
+    filterFn: (row, columnId, value) => {
+      const rowValue = row.getValue(columnId) as string | Date;
+      if (!rowValue) return false;
+
+      const date = new Date(rowValue);
+      const [start, end] =
+        (value as [Date | undefined, Date | undefined]) || [];
+
+      if (!start) return true;
+
+      const adjustedStart = new Date(start);
+      adjustedStart.setHours(0, 0, 0, 0);
+
+      if (!end) {
+        return date >= adjustedStart;
+      }
+
+      const adjustedEnd = new Date(end);
+      adjustedEnd.setHours(23, 59, 59, 999);
+
+      return date >= adjustedStart && date <= adjustedEnd;
+    },
     cell: ({ row }) => (
       <div className="text-sm text-muted-foreground">
         {new Date(row.original.date).toLocaleDateString()}
@@ -145,13 +130,9 @@ const columns: ColumnDef<Expense>[] = [
     ),
   },
   {
-    accessorKey: "account",
-    header: "Account",
-    cell: ({ row }) => <div>{row.original.account}</div>,
-  },
-  {
     accessorKey: "tipo",
     header: "Category",
+    filterFn: "arrIncludesSome",
     cell: ({ row }) => (
       <Badge variant="outline" className="text-muted-foreground px-1.5">
         {row.original.tipo}
@@ -205,32 +186,13 @@ const columns: ColumnDef<Expense>[] = [
   },
 ];
 
-function DraggableRow({ row }: { row: Row<Expense> }) {
-  const { transform, transition, setNodeRef, isDragging } = useSortable({
-    id: row.original.id,
-  });
-
-  return (
-    <TableRow
-      data-state={row.getIsSelected() && "selected"}
-      data-dragging={isDragging}
-      ref={setNodeRef}
-      className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
-      style={{
-        transform: CSS.Transform.toString(transform),
-        transition: transition,
-      }}
-    >
-      {row.getVisibleCells().map((cell) => (
-        <TableCell key={cell.id}>
-          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-        </TableCell>
-      ))}
-    </TableRow>
-  );
+interface DataTableProps {
+  view?: "expenses" | "dashboard";
 }
 
-export function DataTable() {
+export function DataTable({ view = "dashboard" }: DataTableProps) {
+  const isExpenseView = view === "expenses";
+
   const [data, setData] = React.useState<Expense[]>([]);
   const [filteredCategory, setFilteredCategory] = React.useState<string | null>(
     null
@@ -243,6 +205,9 @@ export function DataTable() {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
+
+  const [globalFilter, setGlobalFilter] = React.useState("");
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
@@ -263,6 +228,21 @@ export function DataTable() {
     );
   }, [expenses, filteredCategory]);
 
+  React.useEffect(() => {
+    if (isExpenseView) {
+      table.setPageSize(100);
+      setColumnVisibility((prev) => ({
+        ...prev,
+        drag: false, // matches the 'id' in your columns definition
+      }));
+    } else {
+      setColumnVisibility((prev) => ({
+        ...prev,
+        drag: true,
+      }));
+    }
+  }, [isExpenseView]);
+
   const dataIds = React.useMemo<UniqueIdentifier[]>(
     () => data?.map(({ id }) => id) || [],
     [data]
@@ -275,6 +255,7 @@ export function DataTable() {
       sorting,
       columnVisibility,
       rowSelection,
+      globalFilter,
       columnFilters,
       pagination,
     },
@@ -286,6 +267,7 @@ export function DataTable() {
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
+    onGlobalFilterChange: setGlobalFilter,
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -293,6 +275,14 @@ export function DataTable() {
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    filterFns: {
+      dateRange: (row, columnId, value) => {
+        const date = new Date(row.getValue(columnId));
+        const [start, end] = value;
+        if (!start || !end) return true;
+        return date >= start && date <= end;
+      },
+    },
   });
 
   function handleDragEnd(event: DragEndEvent) {
@@ -308,42 +298,55 @@ export function DataTable() {
 
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
-  /* TODO: add sort by  */
   return (
     <>
-      <div className="flex flex-col gap-6 px-4 lg:px-6">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2">
-            <Select
-              onValueChange={(value) =>
-                setFilteredCategory(value === "all" ? null : value)
-              }
-              defaultValue="all"
+      <div
+        className={`flex flex-col px-4 lg:px-6 ${
+          isExpenseView ? "h-full w-full gap-2 p-0" : "gap-6"
+        }`}
+      >
+        {isExpenseView ? (
+          <DataTableToolbar table={table} categories={categories} />
+        ) : (
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-2">
+              <Select
+                onValueChange={(value) =>
+                  setFilteredCategory(value === "all" ? null : value)
+                }
+                defaultValue="all"
+              >
+                <SelectTrigger className="w-48" id="category-filter">
+                  <SelectValue placeholder="All Categories" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {categories.map((cat) => (
+                    <SelectItem key={cat.id} value={cat.tipo}>
+                      {cat.tipo}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setDrawerOpen(true)}
             >
-              <SelectTrigger className="w-48" id="category-filter">
-                <SelectValue placeholder="All Categories" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                {categories.map((cat) => (
-                  <SelectItem key={cat.id} value={cat.tipo}>
-                    {cat.tipo}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <IconPlus />
+              <span className="hidden lg:inline">Add Expense</span>
+            </Button>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setDrawerOpen(true)}
-          >
-            <IconPlus />
-            <span className="hidden lg:inline">Add Expense</span>
-          </Button>
-        </div>
+        )}
 
-        <div className="overflow-hidden rounded-lg border">
+        <div
+          className={`overflow-auto border ${
+            isExpenseView
+              ? "flex-1 rounded-none border-t border-b border-x-0"
+              : "rounded-lg"
+          }`}
+        >
           <DndContext
             collisionDetection={closestCenter}
             modifiers={[restrictToVerticalAxis]}
@@ -397,44 +400,54 @@ export function DataTable() {
           <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
             {table
               .getRowModel()
-              .rows.reduce((sum, e) => sum + e.original.amount, 0)
+              .rows // <--- You need to access the rows array here
+              .filter((row) => row.original.expense === true)
+              .reduce((sum, row) => sum + row.original.amount, 0)
               .toFixed(2)}{" "}
-            € total in current view.
+            € total expenses in current view.
           </div>
           <div className="flex w-full items-center gap-8 lg:w-fit">
-            <div className="hidden items-center gap-2 lg:flex">
-              <Label htmlFor="rows-per-page" className="text-sm font-medium">
-                Rows per page
-              </Label>
-              <Select
-                value={`${table.getState().pagination.pageSize}`}
-                onValueChange={(value) => {
-                  table.setPageSize(Number(value));
-                }}
-              >
-                <SelectTrigger
-                  size="sm"
-                  className="min-w-[4rem]"
-                  id="rows-per-page"
+            {!isExpenseView && (
+              <div className="hidden items-center gap-2 lg:flex">
+                <Label htmlFor="rows-per-page" className="text-sm font-medium">
+                  Rows per page
+                </Label>
+
+                <Select
+                  value={`${table.getState().pagination.pageSize}`}
+                  onValueChange={(value) => {
+                    table.setPageSize(Number(value));
+                  }}
                 >
-                  <SelectValue
-                    placeholder={table.getState().pagination.pageSize}
-                  />
-                </SelectTrigger>
-                <SelectContent side="top">
-                  {[10, 20, 30, 40, 50].map((pageSize) => (
-                    <SelectItem key={pageSize} value={`${pageSize}`}>
-                      {pageSize}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+                  <SelectTrigger
+                    size="sm"
+                    className="min-w-[4rem]"
+                    id="rows-per-page"
+                  >
+                    <SelectValue
+                      placeholder={table.getState().pagination.pageSize}
+                    />
+                  </SelectTrigger>
+                  <SelectContent side="top">
+                    {[10, 20, 30, 40, 50].map((pageSize) => (
+                      <SelectItem key={pageSize} value={`${pageSize}`}>
+                        {pageSize}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+
             <div className="flex w-fit items-center justify-center text-sm font-medium">
               Page {table.getState().pagination.pageIndex + 1} of{" "}
               {table.getPageCount()}
             </div>
-            <div className="ml-auto flex items-center gap-2 lg:ml-0">
+            <div
+              className={`flex items-center gap-2 justify-between ${
+                isExpenseView ? "py-4" : ""
+              }`}
+            >
               <Button
                 variant="outline"
                 className="hidden h-8 w-8 p-0 lg:flex"
@@ -480,178 +493,5 @@ export function DataTable() {
       </div>
       <ExpenseDrawer open={drawerOpen} onOpenChange={setDrawerOpen} />
     </>
-  );
-}
-
-export default function TableCellViewer({ item }: { item: Expense }) {
-  const isMobile = useIsMobile();
-  const { categories, updateExpense } = useExpenses();
-
-  const [formData, setFormData] = React.useState({ ...item });
-  const [loading, setLoading] = React.useState(false);
-  const [open, setOpen] = React.useState(false); // Controlled drawer
-
-  const handleChange = (key: keyof Expense, value: any) => {
-    setFormData((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleSave = async () => {
-    setLoading(true);
-    try {
-      const updatedData: Expense = {
-        ...formData,
-        date: new Date(formData.date),
-        creation_date: new Date(formData.creation_date),
-      };
-      await updateExpense(item.id, updatedData);
-      setOpen(false); // Close drawer after successful save
-    } catch (e) {
-      console.error("Failed to update expense:", e);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <Drawer
-      direction={isMobile ? "bottom" : "right"}
-      open={open}
-      onOpenChange={setOpen}
-    >
-      <DrawerTrigger asChild>
-        <Button
-          variant="link"
-          className="text-foreground w-fit px-0 text-left"
-          onClick={() => setOpen(true)}
-        >
-          {item.description}
-        </Button>
-      </DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader className="gap-1">
-          <DrawerTitle>{item.description}</DrawerTitle>
-          <DrawerDescription>Edit Expense</DrawerDescription>
-        </DrawerHeader>
-        <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm">
-          <form className="flex flex-col gap-4">
-            {/* Description */}
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="description">Description</Label>
-              <Input
-                id="description"
-                value={formData.description}
-                onChange={(e) => handleChange("description", e.target.value)}
-              />
-            </div>
-
-            {/* Amount & Date */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="amount">Amount</Label>
-                <Input
-                  id="amount"
-                  type="number"
-                  value={formData.amount}
-                  onChange={(e) =>
-                    handleChange("amount", parseFloat(e.target.value))
-                  }
-                />
-              </div>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="date">Date</Label>
-                <Input
-                  id="date"
-                  type="date"
-                  value={new Date(formData.date).toISOString().split("T")[0]}
-                  onChange={(e) =>
-                    handleChange("date", new Date(e.target.value))
-                  }
-                />
-              </div>
-            </div>
-
-            {/* Created At & Account */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="creation_date">Created At</Label>
-                <Input
-                  id="creation_date"
-                  type="date"
-                  value={
-                    new Date(formData.creation_date).toISOString().split("T")[0]
-                  }
-                  onChange={(e) =>
-                    handleChange("creation_date", new Date(e.target.value))
-                  }
-                />
-              </div>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="account">Account</Label>
-                <Input
-                  id="account"
-                  type="number"
-                  value={formData.account}
-                  onChange={(e) =>
-                    handleChange("account", parseInt(e.target.value))
-                  }
-                />
-              </div>
-            </div>
-
-            {/* Category Dropdown */}
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="tipo">Category</Label>
-              <Select
-                value={formData.tipo}
-                onValueChange={(val) => handleChange("tipo", val)}
-              >
-                <SelectTrigger id="tipo" className="w-full">
-                  <SelectValue placeholder="Select category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map((cat) => (
-                    <SelectItem key={cat.id} value={cat.tipo}>
-                      {cat.tipo}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Expense Checkbox */}
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <Checkbox
-                id="expense"
-                checked={formData.expense}
-                onCheckedChange={(checked) =>
-                  handleChange("expense", !!checked)
-                }
-              />
-              <label htmlFor="expense" style={{ fontSize: "14px" }}>
-                Is this an expense?
-              </label>
-            </div>
-          </form>
-        </div>
-        <DrawerFooter>
-          <Button
-            onClick={handleSave}
-            className="w-full !text-gray-900 hover:!bg-gray-200 focus:outline-none focus:ring-0 focus:border-transparent"
-            variant="outline"
-            style={{
-              backgroundColor: "#d9d9d9ff",
-              border: "none",
-            }}
-            disabled={loading}
-          >
-            {loading ? "Saving..." : "Save"}
-          </Button>
-
-          <DrawerClose asChild>
-            <Button variant="outline">Close</Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
   );
 }
