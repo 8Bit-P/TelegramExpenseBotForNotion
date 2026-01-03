@@ -1,4 +1,5 @@
 import { type Icon } from "@tabler/icons-react";
+import { Link } from "react-router-dom"; // Import Link from React Router
 
 import {
   SidebarGroup,
@@ -21,22 +22,16 @@ export function NavMain({
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
-          <SidebarMenuItem className="flex items-center gap-2">
-            {/* <SidebarMenuButton
-              tooltip="Quick Create"
-              className="bg-white text-primary hover:bg-gray-100 hover:text-primary active:bg-gray-200 active:text-primary min-w-8 duration-200 ease-linear"
-            >
-              <IconCirclePlusFilled />
-              <span>Quick Create</span>
-            </SidebarMenuButton> */}
-          </SidebarMenuItem>
-        </SidebarMenu>
-        <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
-                {item.icon && <item.icon />}
-                <span>{item.title}</span>
+              {/* 1. Add 'asChild' so the button component merges with the Link 
+                2. Wrap the contents in a <Link>
+              */}
+              <SidebarMenuButton asChild tooltip={item.title}>
+                <Link to={item.url}>
+                  {item.icon && <item.icon />}
+                  <span>{item.title}</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

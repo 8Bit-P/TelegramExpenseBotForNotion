@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   IconDashboard,
   IconInnerShadowTop,
+  IconListDetails,
 } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
@@ -21,15 +22,14 @@ import {
 const navMain = [
   {
     title: "Dashboard",
-    url: "#",
+    url: "dashboard",
     icon: IconDashboard,
   },
-  /* INFO: for a future if more screens */
-  // {
-  //   title: "Expenses",
-  //   url: "expenses",
-  //   icon: IconListDetails,
-  // },
+  {
+    title: "Expenses",
+    url: "expenses",
+    icon: IconListDetails,
+  },
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
