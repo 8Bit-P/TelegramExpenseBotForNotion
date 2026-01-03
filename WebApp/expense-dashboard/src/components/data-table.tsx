@@ -93,10 +93,26 @@ const columns: ColumnDef<Expense>[] = [
     accessorKey: "date",
     header: "Date",
     filterFn: (row, columnId, value) => {
-      const date = new Date(row.getValue(columnId));
-      const [start, end] = value || [];
-      if (!start || !end) return true;
-      return date >= start && date <= end;
+      const rowValue = row.getValue(columnId) as string | Date;
+      if (!rowValue) return false;
+
+      const date = new Date(rowValue);
+      const [start, end] =
+        (value as [Date | undefined, Date | undefined]) || [];
+
+      if (!start) return true;
+
+      const adjustedStart = new Date(start);
+      adjustedStart.setHours(0, 0, 0, 0);
+
+      if (!end) {
+        return date >= adjustedStart;
+      }
+
+      const adjustedEnd = new Date(end);
+      adjustedEnd.setHours(23, 59, 59, 999);
+
+      return date >= adjustedStart && date <= adjustedEnd;
     },
     cell: ({ row }) => (
       <div className="text-sm text-muted-foreground">
@@ -175,6 +191,8 @@ interface DataTableProps {
 }
 
 export function DataTable({ view = "dashboard" }: DataTableProps) {
+  const isExpenseView = view === "expenses";
+
   const [data, setData] = React.useState<Expense[]>([]);
   const [filteredCategory, setFilteredCategory] = React.useState<string | null>(
     null
@@ -210,12 +228,25 @@ export function DataTable({ view = "dashboard" }: DataTableProps) {
     );
   }, [expenses, filteredCategory]);
 
+  React.useEffect(() => {
+    if (isExpenseView) {
+      table.setPageSize(100);
+      setColumnVisibility((prev) => ({
+        ...prev,
+        drag: false, // matches the 'id' in your columns definition
+      }));
+    } else {
+      setColumnVisibility((prev) => ({
+        ...prev,
+        drag: true,
+      }));
+    }
+  }, [isExpenseView]);
+
   const dataIds = React.useMemo<UniqueIdentifier[]>(
     () => data?.map(({ id }) => id) || [],
     [data]
   );
-
-  const isExpenseView = view === "expenses";
 
   const table = useReactTable({
     data,
@@ -269,12 +300,14 @@ export function DataTable({ view = "dashboard" }: DataTableProps) {
 
   return (
     <>
-      <div className="flex flex-col gap-6 px-4 lg:px-6">
-        {isExpenseView && (
+      <div
+        className={`flex flex-col px-4 lg:px-6 ${
+          isExpenseView ? "h-full w-full gap-2 p-0" : "gap-6"
+        }`}
+      >
+        {isExpenseView ? (
           <DataTableToolbar table={table} categories={categories} />
-        )}
-
-        {!isExpenseView && (
+        ) : (
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2">
               <Select
@@ -307,7 +340,13 @@ export function DataTable({ view = "dashboard" }: DataTableProps) {
           </div>
         )}
 
-        <div className="overflow-hidden rounded-lg border">
+        <div
+          className={`overflow-auto border ${
+            isExpenseView
+              ? "flex-1 rounded-none border-t border-b border-x-0"
+              : "rounded-lg"
+          }`}
+        >
           <DndContext
             collisionDetection={closestCenter}
             modifiers={[restrictToVerticalAxis]}
@@ -361,44 +400,54 @@ export function DataTable({ view = "dashboard" }: DataTableProps) {
           <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
             {table
               .getRowModel()
-              .rows.reduce((sum, e) => sum + e.original.amount, 0)
+              .rows // <--- You need to access the rows array here
+              .filter((row) => row.original.expense === true)
+              .reduce((sum, row) => sum + row.original.amount, 0)
               .toFixed(2)}{" "}
-            € total in current view.
+            € total expenses in current view.
           </div>
           <div className="flex w-full items-center gap-8 lg:w-fit">
-            <div className="hidden items-center gap-2 lg:flex">
-              <Label htmlFor="rows-per-page" className="text-sm font-medium">
-                Rows per page
-              </Label>
-              <Select
-                value={`${table.getState().pagination.pageSize}`}
-                onValueChange={(value) => {
-                  table.setPageSize(Number(value));
-                }}
-              >
-                <SelectTrigger
-                  size="sm"
-                  className="min-w-[4rem]"
-                  id="rows-per-page"
+            {!isExpenseView && (
+              <div className="hidden items-center gap-2 lg:flex">
+                <Label htmlFor="rows-per-page" className="text-sm font-medium">
+                  Rows per page
+                </Label>
+
+                <Select
+                  value={`${table.getState().pagination.pageSize}`}
+                  onValueChange={(value) => {
+                    table.setPageSize(Number(value));
+                  }}
                 >
-                  <SelectValue
-                    placeholder={table.getState().pagination.pageSize}
-                  />
-                </SelectTrigger>
-                <SelectContent side="top">
-                  {[10, 20, 30, 40, 50].map((pageSize) => (
-                    <SelectItem key={pageSize} value={`${pageSize}`}>
-                      {pageSize}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+                  <SelectTrigger
+                    size="sm"
+                    className="min-w-[4rem]"
+                    id="rows-per-page"
+                  >
+                    <SelectValue
+                      placeholder={table.getState().pagination.pageSize}
+                    />
+                  </SelectTrigger>
+                  <SelectContent side="top">
+                    {[10, 20, 30, 40, 50].map((pageSize) => (
+                      <SelectItem key={pageSize} value={`${pageSize}`}>
+                        {pageSize}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+
             <div className="flex w-fit items-center justify-center text-sm font-medium">
               Page {table.getState().pagination.pageIndex + 1} of{" "}
               {table.getPageCount()}
             </div>
-            <div className="ml-auto flex items-center gap-2 lg:ml-0">
+            <div
+              className={`flex items-center gap-2 justify-between ${
+                isExpenseView ? "py-4" : ""
+              }`}
+            >
               <Button
                 variant="outline"
                 className="hidden h-8 w-8 p-0 lg:flex"
