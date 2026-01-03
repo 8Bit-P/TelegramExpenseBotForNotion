@@ -67,6 +67,7 @@ import {
 import { ExpenseDrawer } from "./ExpenseDrawer";
 import TableCellViewer from "./table-cell-viewer";
 import { DraggableRow, DragHandle } from "./data-table-row";
+import { DataTableToolbar } from "./data-table-toolbar";
 
 const columns: ColumnDef<Expense>[] = [
   {
@@ -91,6 +92,12 @@ const columns: ColumnDef<Expense>[] = [
   {
     accessorKey: "date",
     header: "Date",
+    filterFn: (row, columnId, value) => {
+      const date = new Date(row.getValue(columnId));
+      const [start, end] = value || [];
+      if (!start || !end) return true;
+      return date >= start && date <= end;
+    },
     cell: ({ row }) => (
       <div className="text-sm text-muted-foreground">
         {new Date(row.original.date).toLocaleDateString()}
@@ -109,6 +116,7 @@ const columns: ColumnDef<Expense>[] = [
   {
     accessorKey: "tipo",
     header: "Category",
+    filterFn: "arrIncludesSome",
     cell: ({ row }) => (
       <Badge variant="outline" className="text-muted-foreground px-1.5">
         {row.original.tipo}
@@ -162,9 +170,11 @@ const columns: ColumnDef<Expense>[] = [
   },
 ];
 
+interface DataTableProps {
+  view?: "expenses" | "dashboard";
+}
 
-
-export function DataTable() {
+export function DataTable({ view = "dashboard" }: DataTableProps) {
   const [data, setData] = React.useState<Expense[]>([]);
   const [filteredCategory, setFilteredCategory] = React.useState<string | null>(
     null
@@ -177,6 +187,9 @@ export function DataTable() {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
+
+  const [globalFilter, setGlobalFilter] = React.useState("");
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
@@ -202,6 +215,8 @@ export function DataTable() {
     [data]
   );
 
+  const isExpenseView = view === "expenses";
+
   const table = useReactTable({
     data,
     columns,
@@ -209,6 +224,7 @@ export function DataTable() {
       sorting,
       columnVisibility,
       rowSelection,
+      globalFilter,
       columnFilters,
       pagination,
     },
@@ -220,6 +236,7 @@ export function DataTable() {
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
+    onGlobalFilterChange: setGlobalFilter,
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -227,6 +244,14 @@ export function DataTable() {
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    filterFns: {
+      dateRange: (row, columnId, value) => {
+        const date = new Date(row.getValue(columnId));
+        const [start, end] = value;
+        if (!start || !end) return true;
+        return date >= start && date <= end;
+      },
+    },
   });
 
   function handleDragEnd(event: DragEndEvent) {
@@ -245,36 +270,42 @@ export function DataTable() {
   return (
     <>
       <div className="flex flex-col gap-6 px-4 lg:px-6">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2">
-            <Select
-              onValueChange={(value) =>
-                setFilteredCategory(value === "all" ? null : value)
-              }
-              defaultValue="all"
+        {isExpenseView && (
+          <DataTableToolbar table={table} categories={categories} />
+        )}
+
+        {!isExpenseView && (
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-2">
+              <Select
+                onValueChange={(value) =>
+                  setFilteredCategory(value === "all" ? null : value)
+                }
+                defaultValue="all"
+              >
+                <SelectTrigger className="w-48" id="category-filter">
+                  <SelectValue placeholder="All Categories" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {categories.map((cat) => (
+                    <SelectItem key={cat.id} value={cat.tipo}>
+                      {cat.tipo}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setDrawerOpen(true)}
             >
-              <SelectTrigger className="w-48" id="category-filter">
-                <SelectValue placeholder="All Categories" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                {categories.map((cat) => (
-                  <SelectItem key={cat.id} value={cat.tipo}>
-                    {cat.tipo}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <IconPlus />
+              <span className="hidden lg:inline">Add Expense</span>
+            </Button>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setDrawerOpen(true)}
-          >
-            <IconPlus />
-            <span className="hidden lg:inline">Add Expense</span>
-          </Button>
-        </div>
+        )}
 
         <div className="overflow-hidden rounded-lg border">
           <DndContext
@@ -415,5 +446,3 @@ export function DataTable() {
     </>
   );
 }
-
-
