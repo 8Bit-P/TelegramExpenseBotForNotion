@@ -145,11 +145,6 @@ const columns: ColumnDef<Expense>[] = [
     ),
   },
   {
-    accessorKey: "account",
-    header: "Account",
-    cell: ({ row }) => <div>{row.original.account}</div>,
-  },
-  {
     accessorKey: "tipo",
     header: "Category",
     cell: ({ row }) => (
@@ -570,7 +565,7 @@ export default function TableCellViewer({ item }: { item: Expense }) {
               </div>
             </div>
 
-            {/* Created At & Account */}
+            {/* Created At */}
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
                 <Label htmlFor="creation_date">Created At</Label>
@@ -582,17 +577,6 @@ export default function TableCellViewer({ item }: { item: Expense }) {
                   }
                   onChange={(e) =>
                     handleChange("creation_date", new Date(e.target.value))
-                  }
-                />
-              </div>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="account">Account</Label>
-                <Input
-                  id="account"
-                  type="number"
-                  value={formData.account}
-                  onChange={(e) =>
-                    handleChange("account", parseInt(e.target.value))
                   }
                 />
               </div>

@@ -132,23 +132,8 @@ export function ExpenseDrawer({
               </div>
             </div>
 
-            {/* Account & Creation Date */}
+            {/* Creation Date */}
             <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="account">Account</Label>
-                <Input
-                  id="account"
-                  type="number"
-                  value={formData.account}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    handleChange(
-                      "account",
-                      val === "" ? "" : parseInt(val, 10)
-                    );
-                  }}
-                />
-              </div>
               <div className="flex flex-col gap-3">
                 <Label htmlFor="creation_date">Created At</Label>
                 <Input
