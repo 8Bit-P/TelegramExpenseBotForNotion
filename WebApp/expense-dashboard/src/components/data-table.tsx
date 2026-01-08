@@ -121,15 +121,6 @@ const columns: ColumnDef<Expense>[] = [
     ),
   },
   {
-    accessorKey: "creation_date",
-    header: "Created At",
-    cell: ({ row }) => (
-      <div className="text-sm text-muted-foreground">
-        {new Date(row.original.creation_date).toLocaleDateString()}
-      </div>
-    ),
-  },
-  {
     accessorKey: "tipo",
     header: "Category",
     filterFn: "arrIncludesSome",
