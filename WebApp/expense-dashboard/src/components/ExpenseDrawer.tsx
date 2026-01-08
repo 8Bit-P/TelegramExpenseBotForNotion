@@ -23,6 +23,7 @@ import { type Expense, type Category } from "@/interfaces/expense.interface";
 import * as React from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useExpenses } from "@/context/ExpensesContext";
+import { CategoryType } from "@/constants/categories.constants";
 
 export function ExpenseDrawer({
   open,
@@ -51,7 +52,16 @@ export function ExpenseDrawer({
   const [loading, setLoading] = React.useState(false);
 
   const handleChange = (key: keyof Expense, value: any) => {
-    setFormData((prev) => ({ ...prev, [key]: value }));
+    setFormData((prev) => {
+      const newState = { ...prev, [key]: value };
+
+      // LOGIC: If the category is "ingreso", force expense to false
+      if (key === "tipo" && value === CategoryType.Ingreso) {
+        newState.expense = false;
+      }
+
+      return newState;
+    });
   };
 
   const handleSubmit = async () => {
@@ -69,6 +79,8 @@ export function ExpenseDrawer({
       setLoading(false);
     }
   };
+
+  const isIngreso: boolean = formData.tipo === CategoryType.Ingreso;
 
   return (
     <Drawer
@@ -132,30 +144,6 @@ export function ExpenseDrawer({
               </div>
             </div>
 
-            {/* Creation Date */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="creation_date">Created At</Label>
-                <Input
-                  id="creation_date"
-                  type="date"
-                  value={
-                    formData.creation_date
-                      ? new Date(formData.creation_date)
-                          .toISOString()
-                          .split("T")[0]
-                      : ""
-                  }
-                  onChange={(e) =>
-                    handleChange(
-                      "creation_date",
-                      e.target.value ? new Date(e.target.value) : null
-                    )
-                  }
-                />
-              </div>
-            </div>
-
             {/* Category */}
             <div className="flex flex-col gap-3">
               <Label htmlFor="tipo">Category</Label>
@@ -177,15 +165,23 @@ export function ExpenseDrawer({
             </div>
 
             {/* Expense Checkbox */}
-            <div className="flex items-center gap-2">
+            <div
+              className={`flex items-center gap-2 ${
+                isIngreso ? "opacity-50" : ""
+              }`}
+            >
               <Checkbox
                 id="expense"
                 checked={formData.expense as boolean}
+                disabled={isIngreso} 
                 onCheckedChange={(checked) =>
                   handleChange("expense", !!checked)
                 }
               />
-              <label htmlFor="expense" className="text-sm">
+              <label
+                htmlFor="expense"
+                className="text-sm cursor-pointer data-[disabled]:cursor-not-allowed"
+              >
                 Is this an expense?
               </label>
             </div>
